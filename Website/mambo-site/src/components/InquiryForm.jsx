@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { Calendar, User, Mail, Phone, MessageSquare, Send, CheckCircle, ExternalLink } from 'lucide-react';
 
@@ -88,13 +90,13 @@ export default function InquiryForm() {
             <div className="flex flex-col gap-3 text-sm text-stone-600">
               <div>
                 <span className="font-semibold text-stone-800 block">WhatsApp / Phone:</span>
-                <a href="tel:+255748401847" className="font-mono text-teal-600 hover:underline">
-                  +255 748 401 847
+                <a href="tel:+447849243128" className="font-mono text-teal-600 hover:underline">
+                  +447849243128
                 </a>
               </div>
               <div>
                 <span className="font-semibold text-stone-800 block">General Support:</span>
-                <span className="font-mono">info@mambovillas.com</span>
+                <span className="font-mono">admin@mambohotelgroup.com</span>
               </div>
             </div>
           </div>

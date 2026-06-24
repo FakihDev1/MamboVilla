@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Phone, Compass, Sun, Ship } from 'lucide-react';
 
@@ -27,25 +29,24 @@ export default function Navbar({ onNavigate, activeSection }) {
   };
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-stone-200/30 shadow-md py-3' 
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled
+        ? 'bg-white/80 dark:bg-stone-900/80 backdrop-blur-md border-b border-stone-200/30 shadow-md py-3'
         : 'bg-transparent py-5'
-    }`}>
+      }`}>
       <div className="container flex items-center justify-between">
         {/* Logo and brand name */}
-        <button 
-          onClick={() => handleLinkClick('home')} 
+        <button
+          onClick={() => handleLinkClick('home')}
           className="flex items-center gap-3 text-left focus:outline-none"
         >
-          <img 
-            src="/images/logo.jpg" 
-            alt="Mambo Villa Logo" 
+          <img
+            src="/images/logo.jpg"
+            alt="Mambo Beach Hotel Logo"
             className="w-12 h-12 rounded-full object-cover border border-stone-200 shadow-sm"
           />
           <div>
             <span className="font-display font-bold text-lg leading-none tracking-tight block text-stone-800">
-              MAMBO VILLA
+              MAMBO BEACH HOTEL
             </span>
             <span className="text-xs uppercase tracking-wider text-teal-600 font-semibold block">
               Zanzibar & Mikumi
@@ -59,11 +60,10 @@ export default function Navbar({ onNavigate, activeSection }) {
             <button
               key={link.id}
               onClick={() => handleLinkClick(link.id)}
-              className={`font-display font-medium text-sm tracking-wide transition-colors duration-200 hover:text-teal-600 focus:outline-none ${
-                activeSection === link.id 
-                  ? 'text-teal-600 border-b-2 border-teal-600 pb-1' 
+              className={`font-display font-medium text-sm tracking-wide transition-colors duration-200 hover:text-teal-600 focus:outline-none ${activeSection === link.id
+                  ? 'text-teal-600 border-b-2 border-teal-600 pb-1'
                   : 'text-stone-700'
-              }`}
+                }`}
             >
               {link.name}
             </button>
@@ -73,14 +73,14 @@ export default function Navbar({ onNavigate, activeSection }) {
         {/* CTA Phone Call */}
         <div className="hidden lg:flex items-center gap-2 text-stone-700 bg-stone-100 py-2 px-4 rounded-full border border-stone-200/50 shadow-sm">
           <Phone className="w-4 h-4 text-teal-600" />
-          <a href="tel:+255748401847" className="font-mono text-xs font-semibold hover:text-teal-600 transition-colors">
-            +255 748 401 847
+          <a href="tel:+447849243128" className="font-mono text-xs font-semibold hover:text-teal-600 transition-colors">
+            +447849243128
           </a>
         </div>
 
         {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="md:hidden text-stone-800 p-2 focus:outline-none"
           aria-label="Toggle Menu"
         >
@@ -96,9 +96,8 @@ export default function Navbar({ onNavigate, activeSection }) {
               <button
                 key={link.id}
                 onClick={() => handleLinkClick(link.id)}
-                className={`font-display text-2xl font-semibold text-left transition-colors duration-200 focus:outline-none ${
-                  activeSection === link.id ? 'text-teal-600' : 'text-stone-800'
-                }`}
+                className={`font-display text-2xl font-semibold text-left transition-colors duration-200 focus:outline-none ${activeSection === link.id ? 'text-teal-600' : 'text-stone-800'
+                  }`}
               >
                 {link.name}
               </button>
@@ -107,12 +106,12 @@ export default function Navbar({ onNavigate, activeSection }) {
 
           {/* Mobile footer links */}
           <div className="border-t border-stone-200 pt-6 flex flex-col gap-4">
-            <a 
-              href="tel:+255748401847"
+            <a
+              href="tel:+447849243128"
               className="flex items-center gap-3 text-stone-700 font-medium"
             >
               <Phone className="w-5 h-5 text-teal-600" />
-              <span className="font-mono text-sm">+255 748 401 847</span>
+              <span className="font-mono text-sm">+447849243128</span>
             </a>
             <p className="text-xs text-stone-500">
               © {new Date().getFullYear()} Mambo Group. All rights reserved.
