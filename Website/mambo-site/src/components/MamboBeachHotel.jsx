@@ -10,7 +10,6 @@ import {
   Utensils,
   Wifi,
   Wind,
-  Star,
   ArrowRight,
   Image as ImageIcon,
   X,
@@ -19,59 +18,13 @@ import {
   Compass
 } from 'lucide-react';
 import InquiryModal from './InquiryModal';
+import ReviewsSection from './ReviewsSection';
+import GALLERY from '../data/mamboBeachHotel/gallery';
+import FAQS from '../data/mamboBeachHotel/faqs';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FAQS = [
-  {
-    q: "How many rooms does Mambo Beach Hotel have?",
-    a: "We are an exclusive, intimate 5-room boutique hotel. This small size is our greatest luxury advantage, offering guests absolute peace, quiet privacy, and highly personalized care far away from crowded, noisy resorts."
-  },
-  {
-    q: "What dining services are available?",
-    a: "We operate a dedicated central staff kitchen. Instead of mass-produced buffets, our staff prepares fresh, authentic, home-cooked style meals daily. Guests can request breakfast, lunch, and dinner, served directly to their room, private balcony, or beachside."
-  },
-  {
-    q: "Can you host personal events or bonfires?",
-    a: "Yes! Personal events such as weddings, family reunions, and romantic beach dinners can be fully catered for. We also host cozy beach bonfires regularly for our guests to gather under the stars."
-  },
-  {
-    q: "Is there snorkeling nearby?",
-    a: "Absolutely. Mambo Beach Hotel is located beachside, overlooking the Mnemba Island islet. Matemwe is the perfect snorkeling destination, and boat trips launch directly from the beach in front of the hotel. While we do not host these excursions ourselves, our team will gladly direct you to trusted local agencies that organize them."
-  },
-  {
-    q: "What are your policies on extra beds, cots, and parties?",
-    a: "Extra beds and cots are available upon request (please contact the hotel to arrange details). To preserve peace and quiet for our guests, the property does not accommodate hen, stag, or similar parties."
-  }
-];
 
-
-const ALL_IMAGES = [
-  { src: '/images/mamboBeachHotel/externalview10.jpeg', category: 'exterior', alt: 'Mambo Beach Hotel Aerial View' },
-  { src: '/images/mamboBeachHotel/mnemba view.JPG', category: 'exterior', alt: 'Views of Mnemba Island' },
-  { src: '/images/mamboBeachHotel/bedroom.JPG', category: 'rooms', alt: 'Spacious Oceanfront Suite' },
-  { src: '/images/mamboBeachHotel/beachside dining.JPG', category: 'dining', alt: 'Beachside Dining Experience' },
-  { src: '/images/mamboBeachHotel/balcony1.JPG', category: 'rooms', alt: 'Private Balcony & Ocean Views' },
-  { src: '/images/mamboBeachHotel/externalview5.jpeg', category: 'exterior', alt: 'Poolside Lounge Area' },
-  { src: '/images/mamboBeachHotel/externalview8.jpeg', category: 'exterior', alt: 'Crystal Clear Ocean Views' },
-  { src: '/images/mamboBeachHotel/bed1.JPG', category: 'rooms', alt: 'King Size Bed with Ocean View' },
-  { src: '/images/mamboBeachHotel/bed3.JPG', category: 'rooms', alt: 'Comfortable Bedroom Setup' },
-  { src: '/images/mamboBeachHotel/balcony2.JPG', category: 'rooms', alt: 'Balcony Lounge Seating' },
-  { src: '/images/mamboBeachHotel/bathroom.JPG', category: 'rooms', alt: 'Luxury En-suite Bathroom Vanity' },
-  { src: '/images/mamboBeachHotel/shower1.JPG', category: 'rooms', alt: 'Spacious Rainfall Shower' },
-  { src: '/images/mamboBeachHotel/shower2.JPG', category: 'rooms', alt: 'Modern Shower Design' },
-  { src: '/images/mamboBeachHotel/minifridge.JPG', category: 'rooms', alt: 'In-suite Mini Bar' },
-  { src: '/images/mamboBeachHotel/doorway.JPG', category: 'rooms', alt: 'Suite Entrance & Hardwood Details' },
-  { src: '/images/mamboBeachHotel/dining.JPG', category: 'dining', alt: 'Central Dining Area' },
-  { src: '/images/mamboBeachHotel/dining2.JPG', category: 'dining', alt: 'Indoor Restaurant Tables' },
-  { src: '/images/mamboBeachHotel/food1.JPG', category: 'dining', alt: 'Fresh Seafood Dish' },
-  { src: '/images/mamboBeachHotel/meal1.jpeg', category: 'dining', alt: 'Gourmet Zanzibar Cuisine' },
-  { src: '/images/mamboBeachHotel/meal3.jpeg', category: 'dining', alt: 'Gourmet Zanzibar Cuisine' },
-  { src: '/images/mamboBeachHotel/beachside dining2.jpg', category: 'dining', alt: 'Sunset Dining on the Beach' },
-  { src: '/images/mamboBeachHotel/beachside view.jpg', category: 'exterior', alt: 'Matemwe Beachfront View' },
-  { src: '/images/mamboBeachHotel/bed2.jpg', category: 'rooms', alt: 'Premium Double Room Setup' },
-  { src: '/images/mamboBeachHotel/external view.jpg', category: 'exterior', alt: 'Resort Exterior & Palm Trees' }
-];
 
 export default function MamboBeachHotel() {
   const containerRef = useRef(null);
@@ -96,8 +49,8 @@ export default function MamboBeachHotel() {
 
   // Handle keyboard events in Lightbox
   const filteredImages = activeGalleryCategory === 'all'
-    ? ALL_IMAGES
-    : ALL_IMAGES.filter(img => img.category === activeGalleryCategory);
+    ? GALLERY
+    : GALLERY.filter(img => img.category === activeGalleryCategory);
 
   const handlePrev = () => {
     setLightboxIndex((prev) => (prev === 0 ? filteredImages.length - 1 : prev - 1));
@@ -241,7 +194,7 @@ export default function MamboBeachHotel() {
             className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md hover:bg-white text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200/50 flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer z-10"
           >
             <ImageIcon className="w-4 h-4 text-stone-600" />
-            <span>Show all {ALL_IMAGES.length} photos</span>
+            <span>Show all {GALLERY.length} photos</span>
           </button>
         </div>
       </section>
@@ -363,72 +316,7 @@ export default function MamboBeachHotel() {
         </div>
       </section>
 
-      {/* Guest Experiences (Testimonials) */}
-      <section className="reveal-section bg-stone-900 text-white py-24 mb-24 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="font-display text-3xl lg:text-4xl font-bold mb-16">
-            Real Guest Experiences
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-stone-800/50 backdrop-blur-sm p-8 rounded-3xl text-left border border-stone-800 flex flex-col justify-between">
-              <div>
-                <div className="flex text-amber-400 mb-3">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-stone-300 text-xs font-semibold uppercase tracking-wider mb-1">Leigh Kendall</p>
-                <p className="text-stone-500 text-[10px] mb-4">Local Guide • 42 reviews • 37 weeks ago</p>
-                <p className="text-stone-300 text-sm leading-relaxed mb-6 font-light">
-                  "This is a quiet gem right on Matemwe beach. Azizi and his staff made me feel so welcome and catered to our every need. The rooms were clean and serviced daily by a wonderful lady. My massage came to my room and so did my meals when I wanted. Tours and travel was booked as needed. Reasonable rates. Highly recommend."
-                </p>
-              </div>
-              <div className="border-t border-stone-700/60 pt-4 text-[10px] text-stone-400 flex justify-between font-medium">
-                <span>Rooms: 5/5</span>
-                <span>Service: 5/5</span>
-                <span>Location: 5/5</span>
-              </div>
-            </div>
-
-            <div className="bg-stone-800/50 backdrop-blur-sm p-8 rounded-3xl text-left border border-stone-800 flex flex-col justify-between">
-              <div>
-                <div className="flex text-amber-400 mb-3">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-stone-300 text-xs font-semibold uppercase tracking-wider mb-1">Ava Irwin</p>
-                <p className="text-stone-500 text-[10px] mb-4">Holiday · Family • 9 reviews • 48 weeks ago</p>
-                <p className="text-stone-300 text-sm leading-relaxed mb-6 font-light">
-                  "Lovely hotel, very welcoming and helpful staff. The hotel is right on the beach with a great view from the balconies. The cost was very reasonable, I would definitely stay here again."
-                </p>
-              </div>
-              <div>
-                <p className="text-[10px] text-amber-400 font-semibold mb-3">Highlights: Great view, Quiet, Great value</p>
-                <div className="border-t border-stone-700/60 pt-4 text-[10px] text-stone-400 flex justify-between font-medium">
-                  <span>Rooms: 5/5</span>
-                  <span>Service: 5/5</span>
-                  <span>Location: 5/5</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-stone-800/50 backdrop-blur-sm p-8 rounded-3xl text-left border border-stone-800 flex flex-col justify-between">
-              <div>
-                <div className="flex text-amber-400 mb-3">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
-                </div>
-                <p className="text-stone-300 text-xs font-semibold uppercase tracking-wider mb-1">Moza</p>
-                <p className="text-stone-500 text-[10px] mb-4">Guest Review</p>
-                <p className="text-stone-300 text-sm leading-relaxed mb-6 font-light">
-                  "nice hotel, food was amazing, staff well caring and catering, beach side, enjoyed the waves, could see mnemba island"
-                </p>
-              </div>
-              <div className="border-t border-stone-700/60 pt-4 text-[10px] text-stone-400 flex justify-between font-medium">
-                <span>Rooms: 5/5</span>
-                <span>Service: 5/5</span>
-                <span>Location: 5/5</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ReviewsSection />
 
       {/* FAQ Section */}
       <section className="reveal-section px-6 lg:px-12 max-w-3xl mx-auto mb-24">
@@ -506,7 +394,7 @@ export default function MamboBeachHotel() {
             <h3 className="font-display font-bold text-xl text-stone-950 flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-ocean-600" />
               <span>Mambo Beach Hotel Gallery</span>
-              <span className="text-sm font-normal text-stone-500">({ALL_IMAGES.length} photos)</span>
+              <span className="text-sm font-normal text-stone-500">({GALLERY.length} photos)</span>
             </h3>
             <button
               onClick={() => setIsGalleryOpen(false)}
