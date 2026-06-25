@@ -1,274 +1,187 @@
 "use client";
 
 import React from 'react';
-import { 
-  Waves, 
-  Compass, 
-  Utensils, 
-  ShieldCheck, 
-  Sparkles, 
-  ArrowRight, 
-  Trees 
-} from 'lucide-react';
+import { ArrowRight, Star, Waves, Utensils, Wind, Wifi, MapPin } from 'lucide-react';
 
 export default function HomeLanding({ setActiveTab }) {
   return (
-    <div className="w-full pb-24">
-      {/* Immersive Welcome Banner Hero */}
-      <section className="relative w-full min-h-[80vh] flex items-center justify-center py-20 px-6 lg:px-12 overflow-hidden bg-stone-900">
-        {/* Full-width background image with overlay */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/mamboBeachHotel/externalview10.jpeg" 
-            alt="Mambo Beach Hotel Resort Aerial" 
-            className="w-full h-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/40 via-stone-900/50 to-stone-950/70"></div>
-        </div>
+    <div className="w-full">
 
-        {/* Welcome Card Container */}
-        <div className="relative z-10 max-w-4xl w-full bg-white/95 backdrop-blur-lg rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl text-center">
-          <div className="flex flex-col items-center gap-6">
-            {/* Elegant brand tag */}
-            <span className="text-[11px] uppercase tracking-widest text-ocean-700 font-bold bg-ocean-50 py-1.5 px-4 rounded-full border border-ocean-100/50">
-              Karibu Sana &bull; Official Welcome
-            </span>
-            
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-stone-900 tracking-tight leading-none">
-              Mambo Hotel Group
-            </h1>
-            
-            <p className="text-stone-500 font-display italic text-lg sm:text-xl font-medium">
-              Exclusive Tanzanian Destinations & Tailored Hospitality
-            </p>
+      {/* ═══ HERO: Full-bleed destination photography ═══ */}
+      <section className="relative w-full min-h-screen flex flex-col justify-end overflow-hidden">
+        <img
+          src="/images/mamboBeachHotel/beachside view.jpg"
+          alt="Matemwe Beach, Zanzibar"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* Gradient: darkest at bottom for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/40 to-stone-900/5" />
 
-            <div className="w-16 h-0.5 bg-gradient-to-r from-ocean-500 to-amber-500 rounded-full my-1"></div>
-
-            <p className="text-stone-600 text-sm sm:text-base max-w-2xl font-light leading-relaxed">
-              We manage a premier portfolio of intimate coastal hotels and wilderness safari lodges. Driven by a steadfast commitment to <strong>duty of care</strong>, <strong>personalized guest experiences</strong>, and premium services, we replace mass tourism with absolute serenity and safety.
-            </p>
-
-            {/* Core Values grid inside the banner */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mt-6 text-left border-t border-stone-100 pt-6">
-              <div className="p-4 rounded-2xl bg-stone-50/55 border border-stone-200/40">
-                <h4 className="font-display font-semibold text-xs text-stone-900 uppercase tracking-wider mb-1">
-                  Duty of Care
-                </h4>
-                <p className="text-stone-500 text-xs font-light leading-normal">
-                  24/7 on-site hospitality, secure grounds, and medical coordinate support.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-stone-50/55 border border-stone-200/40">
-                <h4 className="font-display font-semibold text-xs text-stone-900 uppercase tracking-wider mb-1">
-                  Personalised Service
-                </h4>
-                <p className="text-stone-500 text-xs font-light leading-normal">
-                  Dedicated staff, custom dining requests, and bespoke local activities.
-                </p>
-              </div>
-              <div className="p-4 rounded-2xl bg-stone-50/55 border border-stone-200/40">
-                <h4 className="font-display font-semibold text-xs text-stone-900 uppercase tracking-wider mb-1">
-                  Premium Selection
-                </h4>
-                <p className="text-stone-500 text-xs font-light leading-normal">
-                  A carefully curated range of properties and booking portal channels.
-                </p>
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
-              <button
-                onClick={() => setActiveTab('mambo-beach')}
-                className="px-8 py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
-              >
-                <span>Explore Zanzibar Coast</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button
-                onClick={() => setActiveTab('mambo-safari')}
-                className="px-8 py-4 bg-stone-900 hover:bg-stone-850 text-white font-bold rounded-2xl shadow-md transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
-              >
-                <span>Explore Safari Teaser</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+        <div className="relative z-10 px-6 lg:px-16 pb-16 lg:pb-24 max-w-3xl">
+          <div className="flex items-center gap-2 mb-4">
+            <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span className="text-amber-300 text-xs font-semibold uppercase tracking-widest">Matemwe, Zanzibar</span>
           </div>
-        </div>
-      </section>
 
-      {/* Property Showcase Directory */}
-      <section className="px-6 lg:px-12 py-24 max-w-7xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-widest text-ocean-700 font-bold block mb-3">
-            Our Boutique Collection
-          </span>
-          <h2 className="font-display font-bold text-3xl sm:text-4xl text-stone-900 mb-6">
-            Two Worlds, One Premium Group
-          </h2>
-          <p className="text-stone-600 font-light leading-relaxed">
-            Whether you seek sunrise over the turquoise Indian Ocean or the raw beauty of the African savannah, Mambo Hotel Group manages every aspect of your stay with flawless hospitality.
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
+            Your private<br />beachfront escape.
+          </h1>
+
+          <p className="text-stone-300 text-base sm:text-lg font-light mb-6 max-w-md leading-relaxed">
+            5 rooms. Direct beach access. Mnemba Island views. Home-cooked meals. From £62 per night.
           </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Card 1: Beach Property */}
-          <div className="bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-sm flex flex-col group hover:border-ocean-500/30 hover:shadow-lg hover:shadow-ocean-500/5 transition-all duration-500">
-            <div className="aspect-[16/10] overflow-hidden relative bg-stone-950 flex items-center justify-center p-8">
-              <img 
-                src="/images/mamboBeachHotel/Mambo beach hotel logo.jpg" 
-                alt="Mambo Beach Hotel" 
-                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-              />
-              <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-ocean-700 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-xl border border-stone-200/30">
-                Zanzibar Beachfront
-              </span>
+          {/* Social proof */}
+          <div className="flex items-center gap-2 mb-8">
+            <div className="flex text-amber-400">
+              {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
             </div>
-            
-            <div className="p-8 flex-grow flex flex-col justify-between">
-              <div>
-                <h3 className="font-display font-bold text-2xl text-stone-900 mb-3 group-hover:text-ocean-600 transition-colors">
-                  Mambo Beach Hotel
-                </h3>
-                <p className="text-stone-500 text-xs tracking-wider uppercase font-semibold mb-4 flex items-center gap-1.5">
-                  <Compass className="w-3.5 h-3.5 text-ocean-600" />
-                  <span>Matemwe, Zanzibar</span>
-                </p>
-                <p className="text-stone-600 font-light text-sm leading-relaxed mb-6">
-                  An exclusive 5 double-room beachfront escape overlooking the Mnemba Island islet. The perfect paradise for ocean lovers interested in snorkeling, coastal dining, and complete relaxation without self-catering.
-                </p>
-                
-                {/* Badges */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {['5 Cozy Double Rooms', 'Private Bathrooms', 'Mnemba Views', 'Snorkeling Focus', 'Staff Kitchen'].map(badge => (
-                    <span key={badge} className="text-xs bg-ocean-50 text-ocean-700 px-2.5 py-1.5 rounded-lg font-medium">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
+            <span className="text-white text-sm font-semibold">5/5</span>
+            <span className="text-stone-400 text-sm">· Rated by all guests</span>
+          </div>
 
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => setActiveTab('mambo-beach')}
+              className="px-7 py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
+            >
+              <span>Explore Mambo Beach Hotel</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <a
+              href="https://www.booking.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold rounded-2xl transition-all flex items-center justify-center text-sm"
+            >
+              Book on Booking.com
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ TRUST STRIP ═══ */}
+      <section className="bg-white border-b border-stone-100 px-6 lg:px-16 py-5">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <blockquote className="text-stone-600 text-sm font-light italic text-center sm:text-left max-w-xl">
+            "A quiet gem right on Matemwe beach — Azizi and his staff made me feel so welcome."
+            <span className="text-stone-500 not-italic font-semibold ml-2">— Leigh Kendall</span>
+          </blockquote>
+          <div className="flex items-stretch divide-x divide-stone-200 shrink-0">
+            {[
+              { value: '5', label: 'Rooms only' },
+              { value: '5/5', label: 'Guest rating' },
+              { value: '£62', label: 'From / night' },
+            ].map(({ value, label }) => (
+              <div key={label} className="px-5 text-center first:pl-0 last:pr-0">
+                <p className="font-display font-black text-stone-900 text-xl">{value}</p>
+                <p className="text-stone-400 text-xs mt-0.5">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ FEATURED PROPERTY: Mambo Beach Hotel ═══ */}
+      <section className="px-6 lg:px-16 py-16 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-stretch">
+
+          {/* Hero photo — dominant */}
+          <div
+            className="lg:col-span-3 rounded-3xl overflow-hidden relative cursor-pointer group min-h-[300px] lg:min-h-[480px]"
+            onClick={() => setActiveTab('mambo-beach')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && setActiveTab('mambo-beach')}
+            aria-label="View Mambo Beach Hotel"
+          >
+            <img
+              src="/images/mamboBeachHotel/mnemba view.JPG"
+              alt="Mambo Beach Hotel — Mnemba Island Views, Zanzibar"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <span className="inline-block bg-ocean-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+                Open Now
+              </span>
+              <h2 className="font-display text-white font-black text-2xl sm:text-3xl">Mambo Beach Hotel</h2>
+              <p className="text-stone-300 text-sm mt-1">Matemwe, Zanzibar · 5 rooms · Direct beachfront</p>
+            </div>
+          </div>
+
+          {/* Info + booking panel */}
+          <div className="lg:col-span-2 flex flex-col gap-6">
+            <div>
+              <span className="text-xs uppercase tracking-widest text-ocean-700 font-bold block mb-3">Zanzibar Beachfront</span>
+              <h3 className="font-display font-bold text-2xl text-stone-900 mb-5">Why guests love it</h3>
+              <div className="space-y-3.5">
+                {[
+                  { icon: Waves, text: 'Direct beach access & Mnemba Island snorkelling' },
+                  { icon: Utensils, text: 'Home-cooked meals served on request, anywhere' },
+                  { icon: Wind, text: 'Air-conditioned rooms with private en-suite' },
+                  { icon: Wifi, text: 'Free Wi-Fi & free parking included' },
+                ].map(({ icon: Icon, text }) => (
+                  <div key={text} className="flex items-start gap-3">
+                    <div className="p-2 bg-ocean-50 rounded-xl text-ocean-600 shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <p className="text-stone-600 text-sm leading-relaxed">{text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Booking panel */}
+            <div className="bg-stone-50 rounded-2xl p-5 border border-stone-200 mt-auto">
+              <p className="text-stone-500 text-xs uppercase tracking-wider font-semibold mb-1">Starting from</p>
+              <p className="font-display font-black text-3xl text-stone-900 mb-4">
+                £62 <span className="text-base font-normal text-stone-400">/ night</span>
+              </p>
               <button
                 onClick={() => setActiveTab('mambo-beach')}
-                className="w-full py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer"
+                className="w-full py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer text-sm mb-2"
               >
-                <span>Explore Mambo Beach Hotel</span>
+                <span>View Rooms & Book</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </button>
-            </div>
-          </div>
-
-          {/* Card 2: Safari Property */}
-          <div className="bg-white rounded-3xl overflow-hidden border border-stone-200 shadow-sm flex flex-col group hover:border-amber-500/30 hover:shadow-lg hover:shadow-amber-500/5 transition-all duration-500">
-            <div className="aspect-[16/10] overflow-hidden relative bg-stone-950 flex items-center justify-center p-8">
-              <img 
-                src="/images/Mambo Hills Safari Lodge logo.jpg" 
-                alt="Mambo Hills Safari Lodge" 
-                className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-              />
-              <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-amber-700 text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-xl border border-stone-200/30">
-                Mikumi Wilderness
-              </span>
-            </div>
-            
-            <div className="p-8 flex-grow flex flex-col justify-between">
-              <div>
-                <h3 className="font-display font-bold text-2xl text-stone-900 mb-3 group-hover:text-amber-600 transition-colors">
-                  Mambo Hills Safari Lodge
-                </h3>
-                <p className="text-stone-500 text-xs tracking-wider uppercase font-semibold mb-4 flex items-center gap-1.5">
-                  <Trees className="w-3.5 h-3.5 text-amber-600" />
-                  <span>Mikumi National Park</span>
-                </p>
-                <p className="text-stone-600 font-light text-sm leading-relaxed mb-6">
-                  An exclusive elevated hilltop wilderness sanctuary currently under development in Mikumi National Park. Experience premium accommodations and spectacular natural surroundings.
-                </p>
-                
-                {/* Badges */}
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {['Under Development', 'Morogoro, Mikumi', 'Coming Soon', 'Group Teaser'].map(badge => (
-                    <span key={badge} className="text-xs bg-amber-50 text-amber-700 px-2.5 py-1.5 rounded-lg font-medium">
-                      {badge}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <button
-                onClick={() => setActiveTab('mambo-safari')}
-                className="w-full py-4 bg-amber-600 hover:bg-amber-500 text-white font-bold rounded-2xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer"
+              <a
+                href="https://www.booking.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center py-2.5 text-ocean-700 hover:text-ocean-600 font-semibold text-sm transition-colors"
               >
-                <span>Explore Safari Teaser</span>
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
+                Book on Booking.com →
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Managing Group Value Pillars */}
-      <section className="bg-white border-y border-stone-200 py-24 px-6 lg:px-12">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-display font-bold text-3xl text-stone-900 mb-4">
-              The Mambo Group Standards
-            </h2>
-            <p className="text-stone-500 font-light text-sm max-w-lg mx-auto">
-              Our hospitality promise guarantees a seamless, secure, and fully catered experience across all Tanzanian properties.
-            </p>
+      {/* ═══ SAFARI: Coming Soon ═══ */}
+      <section className="px-6 lg:px-16 pb-20 max-w-7xl mx-auto">
+        <button
+          onClick={() => setActiveTab('mambo-safari')}
+          className="w-full flex items-center gap-5 sm:gap-8 bg-stone-950 hover:bg-stone-900 rounded-3xl p-6 lg:p-8 text-left transition-colors group cursor-pointer"
+        >
+          <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden">
+            <img
+              src="/images/Mambo Hills Safari Lodge logo.jpg"
+              alt="Mambo Hills Safari Lodge"
+              className="w-full h-full object-contain"
+            />
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="flex gap-4">
-              <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 h-fit shrink-0">
-                <Utensils className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="font-display font-semibold text-stone-900 text-lg mb-2">Dedicated Central Dining</h4>
-                <p className="text-stone-500 font-light text-sm leading-relaxed">
-                  We replace the stress of self-catering. Our professional staff kitchens handle gourmet breakfast, lunch, and dinner requests, so you can focus entirely on your experience.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 h-fit shrink-0">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="font-display font-semibold text-stone-900 text-lg mb-2">Peace of Mind Security</h4>
-                <p className="text-stone-500 font-light text-sm leading-relaxed">
-                  Enjoy complete peace of mind with 24/7 on-site management, secure grounds, and professional hospitality staff catering to your safety and comfort at all times.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 h-fit shrink-0">
-                <Compass className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="font-display font-semibold text-stone-900 text-lg mb-2">Pristine Curation</h4>
-                <p className="text-stone-500 font-light text-sm leading-relaxed">
-                  Our locations are selected for their natural beauty—whether beachfront vistas of Mnemba islet or hilltop lookout decks over Mikumi National Park.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 h-fit shrink-0">
-                <Compass className="w-6 h-6" />
-              </div>
-              <div>
-                <h4 className="font-display font-semibold text-stone-900 text-lg mb-2">Local Activity Guidance</h4>
-                <p className="text-stone-500 font-light text-sm leading-relaxed">
-                  While we do not host or organize tours directly, our guest services team will gladly connect you with trusted local agencies for snorkeling, boat trips, and wilderness safaris.
-                </p>
-              </div>
-            </div>
+          <div className="flex-grow min-w-0">
+            <span className="inline-block bg-amber-600/20 text-amber-400 text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full mb-2 border border-amber-600/20">
+              Coming Soon
+            </span>
+            <h3 className="font-display font-bold text-white text-lg lg:text-xl mb-1">Mambo Hills Safari Lodge</h3>
+            <p className="text-stone-400 text-sm font-light truncate">Mikumi National Park, Tanzania · Now taking expressions of interest</p>
           </div>
-        </div>
+          <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
+        </button>
       </section>
+
     </div>
   );
 }
