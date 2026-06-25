@@ -1,21 +1,13 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
-  MapPin,
-  Waves,
-  Utensils,
-  Wifi,
-  Wind,
-  ArrowRight,
-  Image as ImageIcon,
-  X,
-  ChevronLeft,
-  ChevronRight,
-  Compass
+  MapPin, Waves, Utensils, Wifi, Wind, ArrowRight,
+  Image as ImageIcon, X, ChevronLeft, ChevronRight,
+  Compass, Star, Users, Camera
 } from 'lucide-react';
 import InquiryModal from './InquiryModal';
 import ReviewsSection from './ReviewsSection';
@@ -24,325 +16,375 @@ import FAQS from '../data/mamboBeachHotel/faqs';
 
 gsap.registerPlugin(ScrollTrigger);
 
-
-
 export default function MamboBeachHotel() {
   const containerRef = useRef(null);
+  const touchStartX = useRef(null);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [activeGalleryCategory, setActiveGalleryCategory] = useState('all');
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
+  const [showStickyBar, setShowStickyBar] = useState(false);
 
-
-  // Block body scroll when modals/lightbox are open
+  // Sticky bar: appears after scrolling past hero
   useEffect(() => {
-    if (isGalleryOpen || isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
+    const onScroll = () => setShowStickyBar(window.scrollY > 500);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Body scroll lock when modals are open
+  useEffect(() => {
+    document.body.style.overflow = (isGalleryOpen || isModalOpen) ? 'hidden' : 'unset';
+    return () => { document.body.style.overflow = 'unset'; };
   }, [isGalleryOpen, isModalOpen]);
 
-  // Handle keyboard events in Lightbox
+  // Filtered images for gallery modal
   const filteredImages = activeGalleryCategory === 'all'
     ? GALLERY
     : GALLERY.filter(img => img.category === activeGalleryCategory);
 
-  const handlePrev = () => {
-    setLightboxIndex((prev) => (prev === 0 ? filteredImages.length - 1 : prev - 1));
-  };
+  // Lightbox navigation
+  const handlePrev = useCallback(() =>
+    setLightboxIndex(prev => prev === 0 ? filteredImages.length - 1 : prev - 1),
+    [filteredImages.length]
+  );
+  const handleNext = useCallback(() =>
+    setLightboxIndex(prev => prev === filteredImages.length - 1 ? 0 : prev + 1),
+    [filteredImages.length]
+  );
 
-  const handleNext = () => {
-    setLightboxIndex((prev) => (prev === filteredImages.length - 1 ? 0 : prev + 1));
-  };
-
+  // Keyboard navigation for lightbox
   useEffect(() => {
     if (lightboxIndex === null) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === 'ArrowLeft') {
-        handlePrev();
-      } else if (e.key === 'ArrowRight') {
-        handleNext();
-      } else if (e.key === 'Escape') {
-        setLightboxIndex(null);
-      }
+    const handler = (e) => {
+      if (e.key === 'ArrowLeft') handlePrev();
+      else if (e.key === 'ArrowRight') handleNext();
+      else if (e.key === 'Escape') setLightboxIndex(null);
     };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [lightboxIndex, handlePrev, handleNext]);
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [lightboxIndex, filteredImages]);
+  // Touch swipe support for lightbox on mobile
+  const handleTouchStart = (e) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const delta = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(delta) > 50) delta > 0 ? handleNext() : handlePrev();
+    touchStartX.current = null;
+  };
 
+  // GSAP scroll-reveal for sections
   useGSAP(() => {
-    // Hero Entrance Animation
-    gsap.from(".hero-content", {
-      y: 30,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.2,
-      ease: "power3.out",
-    });
-
-    gsap.from(".gallery-img", {
-      y: 40,
-      opacity: 0,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power3.out",
-      delay: 0.4
-    });
-
-    // Scroll Reveal for Sections
     const sections = gsap.utils.toArray('.reveal-section');
-    sections.forEach((section) => {
+    sections.forEach(section => {
       gsap.from(section, {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-        }
+        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 88%' },
       });
     });
   }, { scope: containerRef });
 
   return (
     <div ref={containerRef} className="w-full pb-24">
-      {/* Immersive Property Hero Banner */}
-      <section className="relative w-full min-h-[50vh] flex items-center justify-center py-20 px-6 lg:px-12 overflow-hidden bg-stone-900 mb-16">
-        {/* Full-width background image with overlay */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="/images/mamboBeachHotel/externalview8.jpeg"
-            alt="Mambo Beach Hotel Ocean Views"
-            className="w-full h-full object-cover opacity-75"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-stone-950/30 via-stone-900/40 to-stone-950/60"></div>
-        </div>
 
-        {/* Welcome Card Container */}
-        <div className="relative z-10 max-w-3xl w-full bg-white/95 backdrop-blur-lg rounded-3xl p-8 md:p-10 border border-white/20 shadow-2xl text-center">
-          <div className="flex flex-col items-center gap-4">
-            <span className="hero-content text-[11px] uppercase tracking-widest text-ocean-700 font-bold bg-ocean-50 py-1 px-3 rounded-full border border-ocean-100/50">
-              Matemwe, Zanzibar
-            </span>
-            {/* Official Hotel Logo */}
-            <div className="hero-content bg-stone-950 rounded-2xl p-4 shadow-md max-w-[220px] w-full">
-              <img
-                src="/images/mamboBeachHotel/Mambo beach hotel logo.jpg"
-                alt="Mambo Beach Hotel Logo"
-                className="w-full h-auto object-contain"
-              />
+      {/* ═══════════════════════════════════════════
+          1. HERO — Full-bleed photography
+      ═══════════════════════════════════════════ */}
+      <section className="relative w-full min-h-screen flex flex-col justify-end overflow-hidden">
+        <img
+          src="/images/mamboBeachHotel/externalview10.jpeg"
+          alt="Mambo Beach Hotel — Matemwe, Zanzibar"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/30 to-transparent" />
+
+        <div className="relative z-10 px-6 lg:px-12 pb-12 max-w-4xl">
+          <div className="flex items-center gap-2 mb-4">
+            <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <span className="text-amber-300 text-xs font-semibold uppercase tracking-widest">Matemwe, Zanzibar</span>
+          </div>
+
+          {/* Official logo */}
+          <div className="mb-5">
+            <img
+              src="/images/mamboBeachHotel/Mambo beach hotel logo.jpg"
+              alt="Mambo Beach Hotel"
+              className="h-14 w-auto object-contain drop-shadow-2xl"
+            />
+          </div>
+
+          <p className="text-stone-300 text-sm sm:text-base font-light mb-5 max-w-md leading-relaxed">
+            5 rooms · Direct beachfront · Mnemba Island views · Home-cooked dining
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 mb-7">
+            <div className="flex items-center gap-1.5">
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+              </div>
+              <span className="text-white text-sm font-semibold">5/5 · All guests</span>
             </div>
-            <p className="hero-content text-stone-500 font-display italic text-base sm:text-lg font-medium">
-              Boutique Beachfront Luxury & Absolute Serenity
-            </p>
-            <div className="hero-content w-12 h-0.5 bg-gradient-to-r from-ocean-500 to-teal-500 rounded-full my-0.5"></div>
-            <p className="hero-content text-stone-650 text-sm sm:text-base max-w-xl font-light leading-relaxed">
-              An exclusive 5-suite retreat situated directly on the white sands of Matemwe beach, overlooking the Mnemba Island islet. Savor personalized service, staff kitchen dining, and pristine coastal living.
-            </p>
+            <span className="text-stone-500 hidden sm:block">·</span>
+            <span className="text-white font-bold text-sm">From £62 / night</span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://www.booking.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm shadow-lg"
+            >
+              Book Now <ArrowRight className="w-4 h-4" />
+            </a>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold rounded-2xl transition-all flex items-center justify-center text-sm cursor-pointer"
+            >
+              Direct Inquiry
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Hero Gallery Grid */}
-      <section className="px-4 lg:px-8 max-w-screen-2xl mx-auto mb-24">
-        <div className="relative group/grid max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-[60vh] min-h-[400px]">
-            <div className="gallery-img md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden relative group cursor-pointer" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('all'); }}>
-              <img
-                src="/images/mamboBeachHotel/externalview10.jpeg"
-                alt="Mambo Beach Hotel Aerial"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500"></div>
+      {/* ═══════════════════════════════════════════
+          2. STATS STRIP
+      ═══════════════════════════════════════════ */}
+      <section className="bg-white border-b border-stone-100 overflow-x-auto hide-scrollbar">
+        <div className="flex items-stretch divide-x divide-stone-100 min-w-max">
+          {[
+            { value: '5 Rooms', label: 'Boutique & private' },
+            { value: 'Beachfront', label: 'Direct sand access' },
+            { value: 'Mnemba Views', label: 'Snorkelling nearby' },
+            { value: 'All Meals', label: 'Home-cooked kitchen' },
+            { value: 'Free Wi-Fi', label: 'Air conditioning' },
+          ].map(({ value, label }) => (
+            <div key={label} className="px-6 py-4 text-center">
+              <p className="font-display font-bold text-stone-900 text-sm whitespace-nowrap">{value}</p>
+              <p className="text-stone-400 text-[11px] whitespace-nowrap">{label}</p>
             </div>
-            <div className="gallery-img rounded-3xl overflow-hidden relative group cursor-pointer" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          3. GALLERY — Mobile: horizontal swipe strip
+      ═══════════════════════════════════════════ */}
+      <section className="md:hidden pt-8 mb-4">
+        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory hide-scrollbar px-6 pb-3">
+          {GALLERY.slice(0, 10).map((img, i) => (
+            <div
+              key={i}
+              className="snap-start shrink-0 w-64 h-48 rounded-2xl overflow-hidden cursor-pointer"
+              onClick={() => setLightboxIndex(i)}
+            >
               <img
-                src="/images/mamboBeachHotel/bedroom.JPG"
-                alt="Luxury Suite Interior"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover"
+                loading={i < 3 ? 'eager' : 'lazy'}
               />
-              <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500"></div>
             </div>
-            <div className="gallery-img rounded-3xl overflow-hidden relative group cursor-pointer" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
-              <img
-                src="/images/mamboBeachHotel/beachside dining.JPG"
-                alt="Oceanfront Dining"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500"></div>
+          ))}
+          {/* "See all" tile */}
+          <div
+            className="snap-start shrink-0 w-64 h-48 rounded-2xl bg-stone-100 border border-stone-200 flex flex-col items-center justify-center cursor-pointer gap-2.5"
+            onClick={() => setIsGalleryOpen(true)}
+          >
+            <Camera className="w-8 h-8 text-stone-400" />
+            <p className="text-stone-700 font-bold text-sm">All {GALLERY.length} photos</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          3. GALLERY — Desktop: mosaic grid
+      ═══════════════════════════════════════════ */}
+      <section className="hidden md:block px-4 lg:px-8 max-w-screen-2xl mx-auto mb-16 pt-8">
+        <div className="relative max-w-7xl mx-auto">
+          <div className="grid grid-cols-4 gap-3 h-[60vh] min-h-[400px]">
+            <div
+              className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group"
+              onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('all'); }}
+            >
+              <img src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="gallery-img md:col-span-2 rounded-3xl overflow-hidden relative group cursor-pointer" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
-              <img
-                src="/images/mamboBeachHotel/food1.JPG"
-                alt="Balcony View"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-stone-900/10 group-hover:bg-transparent transition-colors duration-500"></div>
+            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
+              <img src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
+              <img src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
+              <img src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </div>
-
           <button
             onClick={() => setIsGalleryOpen(true)}
-            className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md hover:bg-white text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200/50 flex items-center gap-2 transition-all hover:scale-[1.02] cursor-pointer z-10"
+            className="absolute bottom-4 right-4 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200 flex items-center gap-2 transition-all cursor-pointer z-10"
           >
             <ImageIcon className="w-4 h-4 text-stone-600" />
-            <span>Show all {GALLERY.length} photos</span>
+            Show all {GALLERY.length} photos
           </button>
         </div>
       </section>
 
-      {/* Core Proposition & Amenities */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
-          <div className="md:col-span-7">
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
-              The Intimate 5-Room Advantage
-            </h2>
-            <p className="text-stone-600 mb-4 leading-relaxed font-light">
-              Mambo Beach Hotel is an <strong>exclusive 5-room boutique hotel</strong> situated directly beachside on Matemwe's white sands. By keeping our property small and intentional, we offer a massive luxury advantage: absolute peace, complete privacy, and highly personalized attention away from the crowded, noisy commercial resorts.
-            </p>
-            <p className="text-stone-600 mb-4 leading-relaxed font-light">
-              Here, there are no crowds. Your cozy, air-conditioned room is a private sanctuary featuring a comfortable bed, private en-suite bathroom, and views overlooking the stunning <strong>Mnemba Island islet</strong>. Matemwe beach is the perfect place to stay if you are interested in snorkeling. While we do not organize excursions directly, our staff will gladly connect you with trusted local agencies that launch boat trips right from our shoreline.
-            </p>
-            <p className="text-stone-600 leading-relaxed font-light">
-              Enjoy dedicated personal service from Azizi and our staff. From daily room servicing to custom travel bookings, we cater to your every request to make your paradise escape flawless.
-            </p>
-          </div>
-
-          <div className="md:col-span-5 space-y-8">
-            <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-sm">
-              <h3 className="font-display font-bold text-xl text-stone-900 mb-6">Hotel Amenities</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Beachside Location</span>
-                </div>
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <Waves className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Mnemba Islet Views</span>
-                </div>
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <Utensils className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Meals On-Request</span>
-                </div>
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <Wifi className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Free Wi-Fi & Internet</span>
-                </div>
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <Wind className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Air Conditioning</span>
-                </div>
-                <div className="flex items-center gap-3 text-stone-700">
-                  <div className="p-2 bg-ocean-50 rounded-lg text-ocean-600">
-                    <Compass className="w-5 h-5" />
-                  </div>
-                  <span className="font-medium text-sm">Free Parking</span>
-                </div>
+      {/* ═══════════════════════════════════════════
+          4. WHAT MAKES IT SPECIAL — 4 icon cards
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16 mt-8 md:mt-0">
+        <h2 className="font-display text-2xl lg:text-3xl font-bold text-stone-900 mb-8 text-center">
+          What makes it special
+        </h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { icon: Waves, title: 'Direct Beachfront', desc: 'Step straight onto the sand' },
+            { icon: Compass, title: 'Mnemba Views', desc: 'Snorkelling from the shore' },
+            { icon: Utensils, title: 'Home-Cooked Meals', desc: 'Fresh & served your way' },
+            { icon: Users, title: '5 Rooms Only', desc: 'No crowds. Total privacy.' },
+          ].map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm text-center hover:shadow-md hover:border-ocean-200 transition-all">
+              <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 w-fit mx-auto mb-3">
+                <Icon className="w-5 h-5" />
               </div>
+              <h3 className="font-display font-bold text-stone-900 text-sm mb-1">{title}</h3>
+              <p className="text-stone-500 text-xs font-light leading-snug">{desc}</p>
             </div>
+          ))}
+        </div>
+      </section>
 
-            <div className="bg-white p-8 rounded-3xl border border-stone-200 shadow-sm">
-              <h3 className="font-display font-bold text-xl text-stone-900 mb-6">Good to Know</h3>
-              <ul className="space-y-3.5 text-xs text-stone-500 font-light">
-                <li className="leading-relaxed">
-                  <strong className="text-stone-700 block font-semibold mb-0.5">Extra Beds:</strong>
-                  Please contact the hotel for details about adding extra beds.
-                </li>
-                <li className="leading-relaxed">
-                  <strong className="text-stone-700 block font-semibold mb-0.5">Cot:</strong>
-                  Please contact the hotel for details about adding a cot.
-                </li>
-                <li className="leading-relaxed">
-                  <strong className="text-stone-700 block font-semibold mb-0.5">Important Policies:</strong>
-                  This property will not accommodate hen, stag or similar parties. Managed by a private host.
-                </li>
-              </ul>
-            </div>
+      {/* ═══════════════════════════════════════════
+          5. MID-PAGE BOOKING CTA
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+        <div className="bg-ocean-600 rounded-3xl p-8 text-center text-white">
+          <p className="text-ocean-200 text-xs uppercase tracking-widest font-semibold mb-2">Ready to book?</p>
+          <h2 className="font-display font-black text-2xl sm:text-3xl mb-2">From £62 per night</h2>
+          <p className="text-ocean-200 text-sm mb-6 font-light">Only 5 rooms — availability is limited</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <a
+              href="https://www.booking.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-7 py-3 bg-white text-ocean-700 font-bold rounded-2xl text-sm hover:bg-ocean-50 transition-colors flex items-center justify-center gap-2"
+            >
+              Book on Booking.com <ArrowRight className="w-4 h-4" />
+            </a>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-7 py-3 bg-ocean-500 border border-ocean-400 text-white font-bold rounded-2xl text-sm hover:bg-ocean-400 transition-colors cursor-pointer"
+            >
+              Direct Inquiry
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Culinary & Events Section */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="order-2 md:order-1 bg-white p-8 rounded-3xl border border-stone-200 shadow-sm relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full blur-2xl"></div>
-            <h3 className="font-display font-bold text-xl text-stone-900 mb-4">Home-Cooked Culinary Focus</h3>
-            <p className="text-stone-600 text-sm font-light leading-relaxed mb-4">
-              Because we are an intimate 5-room property, our central kitchen rejects mass-produced buffet food. Instead, our dedicated staff prepares fresh, authentic, high-quality <strong>"home-cooked" style meals</strong> daily.
-            </p>
-            <p className="text-stone-600 text-sm font-light leading-relaxed mb-6">
-              Savor customized dining served exactly when and where you want it. Whether breakfast on your private balcony or fresh seafood served right on the beachside, our kitchen turns fresh local ingredients into amazing meals.
-            </p>
-            <div className="border-t border-stone-100 pt-4 text-xs italic text-stone-500 flex gap-2">
-              <span>"nice hotel, food was amazing, staff well caring and catering"</span>
-              <span className="font-bold shrink-0">— Moza</span>
-            </div>
-          </div>
-
-          <div className="order-1 md:order-2">
-            <span className="text-xs uppercase tracking-widest text-amber-700 font-bold block mb-3">
-              Dining & Gathering
-            </span>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
-              Culinary Excellence & Private Events
-            </h2>
-            <p className="text-stone-600 mb-4 leading-relaxed font-light">
-              Enjoy complete dining flexibility. You can request breakfast, lunch, and dinner directly from our staff kitchen.
-            </p>
-            <p className="text-stone-600 leading-relaxed font-light">
-              Looking for a special celebration? <strong>Personal events (weddings, family gatherings, romantic dinners) can be catered for</strong> perfectly on our secure grounds. We recently held a spectacular <strong>beach bonfire gathering</strong> under the stars—bringing guests together for an unforgettable Zanzibari night.
-            </p>
-          </div>
-        </div>
-      </section>
-
+      {/* ═══════════════════════════════════════════
+          6. REVIEWS — Social proof pulled up early
+      ═══════════════════════════════════════════ */}
       <ReviewsSection />
 
-      {/* FAQ Section */}
-      <section className="reveal-section px-6 lg:px-12 max-w-3xl mx-auto mb-24">
-        <div className="text-center mb-12">
-          <h2 className="font-display text-3xl font-bold text-stone-900">
-            Mambo Beach Hotel: FAQs
-          </h2>
-          <p className="text-stone-500 font-light text-sm mt-2">
-            Everything you need to know about your stay at Mambo Beach Hotel.
-          </p>
+      {/* ═══════════════════════════════════════════
+          7. DINING
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="rounded-3xl overflow-hidden aspect-[4/3]">
+            <img
+              src="/images/mamboBeachHotel/beachside dining2.jpg"
+              alt="Beachside Dining at Mambo Beach Hotel"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <div>
+            <span className="text-xs uppercase tracking-widest text-amber-700 font-bold block mb-2">Dining</span>
+            <h2 className="font-display text-2xl lg:text-3xl font-bold text-stone-900 mb-4">
+              Home-cooked, served your way
+            </h2>
+            <p className="text-stone-600 font-light text-sm leading-relaxed mb-5">
+              No buffets. No crowds. Our kitchen prepares fresh, authentic meals daily — served on your balcony, beachside, or wherever you prefer. Breakfast, lunch, or dinner on request.
+            </p>
+            <blockquote className="border-l-2 border-amber-400 pl-4 text-stone-500 text-sm italic">
+              "The lobster and grilled fish were cooked to perfection. Felt like a mini honeymoon dinner all over again." — Moza ⭐⭐⭐⭐⭐
+            </blockquote>
+          </div>
         </div>
+      </section>
 
-        <div className="space-y-4">
+      {/* ═══════════════════════════════════════════
+          8. AMENITIES + GOOD TO KNOW
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Amenities */}
+          <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+            <h3 className="font-display font-bold text-lg text-stone-900 mb-5">Hotel Amenities</h3>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { icon: MapPin, label: 'Beachside Location' },
+                { icon: Waves, label: 'Mnemba Views' },
+                { icon: Utensils, label: 'Meals On-Request' },
+                { icon: Wifi, label: 'Free Wi-Fi' },
+                { icon: Wind, label: 'Air Conditioning' },
+                { icon: Compass, label: 'Free Parking' },
+              ].map(({ icon: Icon, label }) => (
+                <div key={label} className="flex items-center gap-2.5 text-stone-700">
+                  <div className="p-1.5 bg-ocean-50 rounded-lg text-ocean-600 shrink-0">
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-sm font-medium">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Good to know */}
+          <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+            <h3 className="font-display font-bold text-lg text-stone-900 mb-5">Good to Know</h3>
+            <div className="space-y-3 text-sm text-stone-600 font-light">
+              {[
+                'Extra beds & cots available — contact us to arrange',
+                'Weddings, romantic dinners & private events catered for',
+                'Beach bonfires available for guests under the stars',
+                'Hen, stag & similar parties not accommodated',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-2.5">
+                  <span className="text-ocean-400 shrink-0 font-bold mt-px">→</span>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          9. FAQS
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section px-6 lg:px-12 max-w-3xl mx-auto mb-16">
+        <h2 className="font-display text-2xl font-bold text-stone-900 text-center mb-8">
+          Frequently Asked Questions
+        </h2>
+        <div className="space-y-3">
           {FAQS.map((faq, idx) => {
             const isOpen = openFaqIndex === idx;
             return (
-              <div key={idx} className="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm transition-all">
+              <div key={idx} className="bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full px-6 py-4 text-left font-display font-semibold text-stone-900 hover:text-ocean-600 transition-colors flex items-center justify-between focus:outline-none cursor-pointer"
+                  className="w-full px-6 py-4 text-left font-display font-semibold text-stone-900 hover:text-ocean-600 transition-colors flex items-center justify-between focus:outline-none cursor-pointer text-sm"
                 >
                   <span>{faq.q}</span>
-                  <span className="text-stone-450 font-normal text-xl">{isOpen ? "−" : "+"}</span>
+                  <span className="text-stone-400 font-normal text-xl ml-4 shrink-0">{isOpen ? '−' : '+'}</span>
                 </button>
                 {isOpen && (
-                  <div className="px-6 pb-5 pt-1 text-sm text-stone-500 font-light leading-relaxed animate-fade-in">
+                  <div className="px-6 pb-5 pt-1 text-sm text-stone-500 font-light leading-relaxed">
                     {faq.a}
                   </div>
                 )}
@@ -352,15 +394,14 @@ export default function MamboBeachHotel() {
         </div>
       </section>
 
-
-      {/* CTA Funnel */}
-      <section className="reveal-section max-w-4xl mx-auto px-6 lg:px-12 text-center">
-        <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
-          Ready for Paradise?
+      {/* ═══════════════════════════════════════════
+          10. FINAL CTA
+      ═══════════════════════════════════════════ */}
+      <section className="reveal-section max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
+        <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-3">
+          Ready for paradise?
         </h2>
-        <p className="text-stone-600 mb-10 font-light">
-          Book instantly through our trusted OTA partner or send us a direct inquiry for personalized service.
-        </p>
+        <p className="text-stone-500 mb-8 font-light">Only 5 rooms — don't miss your dates.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href="https://www.booking.com/"
@@ -368,56 +409,58 @@ export default function MamboBeachHotel() {
             rel="noopener noreferrer"
             className="px-8 py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-full shadow-lg transition-all flex items-center justify-center gap-2 group"
           >
-            <span>Book on Booking.com</span>
+            Book on Booking.com
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </a>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-900 font-bold rounded-full shadow-sm transition-all flex items-center justify-center gap-2"
+            className="px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-900 font-bold rounded-full shadow-sm transition-all cursor-pointer"
           >
             Direct Inquiry
           </button>
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════
+          MODALS
+      ═══════════════════════════════════════════ */}
       <InquiryModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         defaultProperty="Mambo Beach Hotel"
       />
 
-      {/* Interactive Photo Gallery Modal */}
+      {/* Full Gallery Modal */}
       {isGalleryOpen && (
         <div className="fixed inset-0 z-50 bg-stone-50 overflow-y-auto flex flex-col animate-fade-in">
-          {/* Header */}
           <header className="sticky top-0 z-10 bg-white/90 backdrop-blur-md border-b border-stone-200/60 px-6 py-4 flex items-center justify-between">
-            <h3 className="font-display font-bold text-xl text-stone-950 flex items-center gap-2">
+            <h3 className="font-display font-bold text-lg text-stone-950 flex items-center gap-2">
               <ImageIcon className="w-5 h-5 text-ocean-600" />
               <span>Mambo Beach Hotel Gallery</span>
               <span className="text-sm font-normal text-stone-500">({GALLERY.length} photos)</span>
             </h3>
             <button
               onClick={() => setIsGalleryOpen(false)}
-              className="p-2 rounded-full hover:bg-stone-100 text-stone-600 hover:text-stone-950 transition-colors"
+              className="p-2 rounded-full hover:bg-stone-100 text-stone-600 transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
           </header>
 
-          {/* Categories Tab Bar */}
+          {/* Category filter tabs */}
           <div className="bg-white border-b border-stone-200/50 px-6 py-3 flex items-center gap-2 overflow-x-auto hide-scrollbar">
             {[
               { id: 'all', label: 'All Photos' },
               { id: 'exterior', label: 'Exterior & Views' },
               { id: 'rooms', label: 'Rooms & Suites' },
-              { id: 'dining', label: 'Dining & Cuisine' }
-            ].map((cat) => (
+              { id: 'dining', label: 'Dining & Cuisine' },
+            ].map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setActiveGalleryCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all ${activeGalleryCategory === cat.id
-                  ? 'bg-ocean-600 text-white shadow-sm'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200/70 hover:text-stone-900'
+                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${activeGalleryCategory === cat.id
+                    ? 'bg-ocean-600 text-white'
+                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
                   }`}
               >
                 {cat.label}
@@ -425,14 +468,14 @@ export default function MamboBeachHotel() {
             ))}
           </div>
 
-          {/* Images Grid */}
+          {/* Images grid */}
           <div className="flex-grow max-w-7xl w-full mx-auto p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {filteredImages.map((image, index) => (
                 <div
                   key={image.src}
                   onClick={() => setLightboxIndex(index)}
-                  className="group aspect-[4/3] rounded-2xl overflow-hidden border border-stone-200/40 shadow-sm bg-stone-200 cursor-pointer relative"
+                  className="group aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer relative bg-stone-200"
                 >
                   <img
                     src={image.src}
@@ -441,30 +484,31 @@ export default function MamboBeachHotel() {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/20 transition-all duration-300 flex items-end p-4">
-                    <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-stone-950/40 backdrop-blur-md px-3 py-1.5 rounded-lg">
+                    <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity bg-stone-950/40 backdrop-blur-md px-3 py-1.5 rounded-lg">
                       {image.alt}
                     </span>
                   </div>
                 </div>
               ))}
+              {filteredImages.length === 0 && (
+                <div className="col-span-3 text-center py-24">
+                  <p className="text-stone-500">No photos in this category yet.</p>
+                </div>
+              )}
             </div>
-            {filteredImages.length === 0 && (
-              <div className="text-center py-24">
-                <p className="text-stone-500">No photos in this category yet.</p>
-              </div>
-            )}
           </div>
         </div>
       )}
 
-      {/* Lightbox Slider Overlay */}
+      {/* Lightbox — with touch swipe support */}
       {lightboxIndex !== null && (
-        <div className="fixed inset-0 z-[60] bg-black/95 flex flex-col justify-between select-none">
-          {/* Top panel */}
-          <div className="p-6 flex items-center justify-between text-white z-10">
-            <span className="font-semibold text-sm">
-              {lightboxIndex + 1} / {filteredImages.length}
-            </span>
+        <div
+          className="fixed inset-0 z-[60] bg-black/95 flex flex-col justify-between select-none"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="p-5 flex items-center justify-between text-white">
+            <span className="font-semibold text-sm">{lightboxIndex + 1} / {filteredImages.length}</span>
             <button
               onClick={() => setLightboxIndex(null)}
               className="p-2 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-colors"
@@ -473,37 +517,61 @@ export default function MamboBeachHotel() {
             </button>
           </div>
 
-          {/* Image & navigation */}
-          <div className="flex-grow flex items-center justify-between px-4 relative max-h-[85vh]">
-            <button
-              onClick={handlePrev}
-              className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-850 text-white transition-all hover:scale-105 active:scale-95 z-10"
-            >
+          <div className="flex-grow flex items-center justify-between px-3 sm:px-6">
+            <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
               <ChevronLeft className="w-6 h-6" />
             </button>
-
-            <div className="max-w-[90%] max-h-full flex items-center justify-center p-4">
+            <div className="flex-grow flex items-center justify-center px-2 max-h-[75vh]">
               <img
                 src={filteredImages[lightboxIndex].src}
                 alt={filteredImages[lightboxIndex].alt}
-                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl animate-zoom-in"
+                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
               />
             </div>
-
-            <button
-              onClick={handleNext}
-              className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-850 text-white transition-all hover:scale-105 active:scale-95 z-10"
-            >
+            <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>
 
-          {/* Bottom Caption */}
-          <div className="p-8 text-center text-stone-300 font-light text-sm bg-gradient-to-t from-black/80 to-transparent">
+          <div className="py-5 text-center text-stone-400 text-sm px-6 font-light">
             {filteredImages[lightboxIndex].alt}
           </div>
         </div>
       )}
+
+      {/* ═══════════════════════════════════════════
+          STICKY BOOKING BAR — appears after hero
+      ═══════════════════════════════════════════ */}
+      {showStickyBar && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-stone-200 shadow-2xl px-6 py-3.5 flex items-center justify-between gap-4">
+          <div>
+            <p className="font-display font-black text-stone-900 text-lg leading-none">
+              £62 <span className="text-sm font-normal text-stone-400">/ night</span>
+            </p>
+            <div className="flex items-center gap-1 mt-1">
+              {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current text-amber-400" />)}
+              <span className="text-stone-400 text-xs ml-1">5/5 · All guests</span>
+            </div>
+          </div>
+          <div className="flex gap-2 shrink-0">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="px-4 py-2.5 border border-stone-200 text-stone-700 font-semibold rounded-xl text-sm hover:bg-stone-50 transition-colors cursor-pointer hidden sm:block"
+            >
+              Enquire
+            </button>
+            <a
+              href="https://www.booking.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl text-sm transition-colors flex items-center gap-1.5"
+            >
+              Book Now <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

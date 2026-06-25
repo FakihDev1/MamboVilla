@@ -33,8 +33,8 @@ const REVIEWS = [
     name: "Moza",
     meta: "Guest Review",
     review:
-      "nice hotel, food was amazing, staff well caring and catering, beach side, enjoyed the waves, could see mnemba island",
-    highlights: null,
+      "Perfect spot for a special night out. Mambo Villa gave us amazing food — the lobster and grilled fish were cooked to perfection, and the tamara rice/chips had so much flavour. Romantic setting and service that made us feel so welcome. Felt like a mini honeymoon dinner all over again. Thank you for the great experience! Definitely will go back again.",
+    highlights: "Amazing food, Romantic setting, Great service",
     response: null,
     ratings: { rooms: "5/5", service: "5/5", location: "5/5" },
   },
