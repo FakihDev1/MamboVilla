@@ -10,7 +10,7 @@ const inter = Inter({
 const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
 });
 
 export const metadata = {
