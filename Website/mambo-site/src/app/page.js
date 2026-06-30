@@ -34,34 +34,34 @@ export default function Home() {
             <button 
               onClick={() => setActiveTab('home')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'home' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'home' ? 'text-brand' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Home
               {activeTab === 'home' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-600 rounded-t-full"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand rounded-t-full"></div>
               )}
             </button>
             <button 
               onClick={() => setActiveTab('mambo-beach')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'mambo-beach' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'mambo-beach' ? 'text-brand' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Mambo Beach Hotel
               {activeTab === 'mambo-beach' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-600 rounded-t-full"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand rounded-t-full"></div>
               )}
             </button>
             <button 
               onClick={() => setActiveTab('mambo-safari')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'mambo-safari' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'mambo-safari' ? 'text-brand' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Mambo Hills Safari Lodge
               {activeTab === 'mambo-safari' && (
-                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-ocean-600 rounded-t-full"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand rounded-t-full"></div>
               )}
             </button>
           </nav>

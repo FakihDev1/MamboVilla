@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import InquiryModal from './InquiryModal';
 import ReviewsSection from './ReviewsSection';
+import Button from './Button';
 import GALLERY from '../data/mamboBeachHotel/gallery';
 import FAQS from '../data/mamboBeachHotel/faqs';
 
@@ -132,20 +133,21 @@ export default function MamboBeachHotel() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <a
+            <Button
               href="https://www.booking.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3.5 bg-ocean-700 hover:bg-ocean-600 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm shadow-lg"
+              className="px-7 py-3.5 rounded-2xl text-sm shadow-lg"
             >
               Book Now <ArrowRight className="w-4 h-4" />
-            </a>
-            <button
+            </Button>
+            <Button
+              variant="glass"
               onClick={() => setIsModalOpen(true)}
-              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold rounded-2xl transition-all flex items-center justify-center text-sm cursor-pointer"
+              className="px-7 py-3.5 rounded-2xl text-sm"
             >
               Direct Inquiry
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -164,7 +166,7 @@ export default function MamboBeachHotel() {
           ].map(({ value, label }) => (
             <div key={label} className="px-6 py-4 text-center">
               <p className="font-display font-bold text-stone-900 text-sm whitespace-nowrap">{value}</p>
-              <p className="text-stone-600 text-[11px] whitespace-nowrap">{label}</p>
+              <p className="text-muted text-[11px] whitespace-nowrap">{label}</p>
             </div>
           ))}
         </div>
@@ -261,25 +263,27 @@ export default function MamboBeachHotel() {
           5. MID-PAGE BOOKING CTA
       ═══════════════════════════════════════════ */}
       <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
-        <div className="bg-ocean-600 rounded-3xl p-8 text-center text-white">
+        <div className="bg-brand rounded-3xl p-8 text-center text-white">
           <p className="text-ocean-200 text-xs uppercase tracking-widest font-semibold mb-2">Ready to book?</p>
           <h2 className="font-display font-black text-2xl sm:text-3xl mb-2">From £62 per night</h2>
           <p className="text-ocean-200 text-sm mb-6 font-light">Only 5 rooms — availability is limited</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
+            <Button
               href="https://www.booking.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3 bg-white text-ocean-700 font-bold rounded-2xl text-sm hover:bg-ocean-50 transition-colors flex items-center justify-center gap-2"
+              variant="onBrand"
+              className="px-7 py-3 rounded-2xl text-sm"
             >
               Book on Booking.com <ArrowRight className="w-4 h-4" />
-            </a>
-            <button
+            </Button>
+            <Button
+              variant="glassStrong"
               onClick={() => setIsModalOpen(true)}
-              className="px-7 py-3 bg-ocean-500 border border-ocean-400 text-white font-bold rounded-2xl text-sm hover:bg-ocean-400 transition-colors cursor-pointer"
+              className="px-7 py-3 rounded-2xl text-sm"
             >
               Direct Inquiry
-            </button>
+            </Button>
           </div>
         </div>
       </section>
@@ -403,21 +407,22 @@ export default function MamboBeachHotel() {
         </h2>
         <p className="text-stone-500 mb-8 font-light">Only 5 rooms — don't miss your dates.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+          <Button
             href="https://www.booking.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-full shadow-lg transition-all flex items-center justify-center gap-2 group"
+            className="px-8 py-4 rounded-full shadow-lg group"
           >
             Book on Booking.com
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </a>
-          <button
+          </Button>
+          <Button
+            variant="outline"
             onClick={() => setIsModalOpen(true)}
-            className="px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-900 font-bold rounded-full shadow-sm transition-all cursor-pointer"
+            className="px-8 py-4 rounded-full shadow-sm"
           >
             Direct Inquiry
-          </button>
+          </Button>
         </div>
       </section>
 
@@ -459,7 +464,7 @@ export default function MamboBeachHotel() {
                 key={cat.id}
                 onClick={() => setActiveGalleryCategory(cat.id)}
                 className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${activeGalleryCategory === cat.id
-                    ? 'bg-ocean-600 text-white'
+                    ? 'bg-brand text-white'
                     : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
                   }`}
               >
@@ -546,11 +551,11 @@ export default function MamboBeachHotel() {
         <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-stone-200 shadow-2xl px-6 py-3.5 flex items-center justify-between gap-4">
           <div>
             <p className="font-display font-black text-stone-900 text-lg leading-none">
-              £62 <span className="text-sm font-normal text-stone-400">/ night</span>
+              £62 <span className="text-sm font-normal text-muted">/ night</span>
             </p>
             <div className="flex items-center gap-1 mt-1">
               {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current text-amber-400" />)}
-              <span className="text-stone-400 text-xs ml-1">5/5 · All guests</span>
+              <span className="text-muted text-xs ml-1">5/5 · All guests</span>
             </div>
           </div>
           <div className="flex gap-2 shrink-0">
@@ -560,14 +565,14 @@ export default function MamboBeachHotel() {
             >
               Enquire
             </button>
-            <a
+            <Button
               href="https://www.booking.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl text-sm transition-colors flex items-center gap-1.5"
+              className="px-5 py-2.5 rounded-xl text-sm"
             >
               Book Now <ArrowRight className="w-3.5 h-3.5" />
-            </a>
+            </Button>
           </div>
         </div>
       )}
