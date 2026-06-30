@@ -18,7 +18,7 @@ export default function Button({
 }) {
   const isInternalLink = href && href.startsWith('/');
   const base =
-    'font-bold transition-all inline-flex items-center justify-center gap-2 cursor-pointer';
+    'font-bold transition-colors inline-flex items-center justify-center gap-2 cursor-pointer';
   const classes = [base, VARIANTS[variant] ?? VARIANTS.primary, className].join(' ');
 
   if (isInternalLink) {

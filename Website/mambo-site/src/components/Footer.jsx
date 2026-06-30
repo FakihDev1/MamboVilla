@@ -18,7 +18,7 @@ export default function Footer() {
               alt="Mambo Hotel Group Logo" 
               width={32}
               height={32}
-              className="w-8 h-8 object-contain rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105"
+              className="w-8 h-8 object-contain rounded-lg shadow-sm"
             />
             <span className="font-display font-bold text-white text-lg tracking-tight group-hover:text-stone-200 transition-colors">
               Mambo Hotel Group

@@ -44,7 +44,7 @@ export default function Header() {
                 width={40}
                 height={40}
                 priority
-                className="w-10 h-10 object-contain rounded-xl shadow-md transition-all duration-300 group-hover:scale-110 group-active:scale-95"
+                className="w-10 h-10 object-contain rounded-xl shadow-md"
               />
             </button>
 
@@ -67,7 +67,7 @@ export default function Header() {
             {/* Mobile: compact icon button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-900 hover:bg-stone-800 text-white rounded-xl shadow-sm transition-all cursor-pointer"
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-900 hover:bg-stone-800 text-white rounded-xl shadow-sm transition-colors cursor-pointer"
               aria-label="Open direct inquiry form"
             >
               <Mail className="w-4 h-4" />
@@ -75,7 +75,7 @@ export default function Header() {
             {/* Desktop: full button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all hover:scale-[1.02] cursor-pointer"
+              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-colors cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Direct Inquiry</span>
@@ -83,7 +83,7 @@ export default function Header() {
             {/* Mobile: hamburger menu toggle */}
             <button
               onClick={() => setIsMenuOpen((open) => !open)}
-              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl transition-all cursor-pointer"
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl transition-colors cursor-pointer"
               aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav"

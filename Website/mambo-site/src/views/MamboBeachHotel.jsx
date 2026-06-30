@@ -203,21 +203,21 @@ export default function MamboBeachHotel() {
               className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group relative"
               onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('all'); }}
             >
-              <Image src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
             </div>
             <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
-              <Image src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
             </div>
             <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
-              <Image src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
             </div>
             <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
-              <Image src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
             </div>
           </div>
           <button
             onClick={() => setIsGalleryOpen(true)}
-            className="absolute bottom-4 right-4 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200 flex items-center gap-2 transition-all cursor-pointer z-10"
+            className="absolute bottom-4 right-4 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200 flex items-center gap-2 transition-colors cursor-pointer z-10"
           >
             <ImageIcon className="w-4 h-4 text-stone-600" />
             Show all {GALLERY.length} photos
@@ -239,7 +239,7 @@ export default function MamboBeachHotel() {
             { icon: Utensils, title: 'Home-Cooked Meals', desc: 'Fresh & served your way' },
             { icon: Users, title: '5 Rooms Only', desc: 'No crowds. Total privacy.' },
           ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm text-center hover:shadow-md hover:border-ocean-200 transition-all">
+            <div key={title} className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm text-center">
               <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 w-fit mx-auto mb-3">
                 <Icon className="w-5 h-5" />
               </div>
@@ -406,7 +406,7 @@ export default function MamboBeachHotel() {
             className="px-8 py-4 rounded-full shadow-lg group"
           >
             Book on Booking.com
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4" />
           </Button>
           <Button
             variant="outline"
@@ -455,7 +455,7 @@ export default function MamboBeachHotel() {
               <button
                 key={cat.id}
                 onClick={() => setActiveGalleryCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${activeGalleryCategory === cat.id
+                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${activeGalleryCategory === cat.id
                     ? 'bg-brand text-white'
                     : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
                   }`}
@@ -479,13 +479,8 @@ export default function MamboBeachHotel() {
                     alt={image.alt}
                     fill
                     sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/20 transition-all duration-300 flex items-end p-4">
-                    <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity bg-stone-950/40 backdrop-blur-md px-3 py-1.5 rounded-lg">
-                      {image.alt}
-                    </span>
-                  </div>
                 </div>
               ))}
               {filteredImages.length === 0 && (
@@ -516,7 +511,7 @@ export default function MamboBeachHotel() {
           </div>
 
           <div className="flex-grow flex items-center justify-between px-3 sm:px-6">
-            <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
+            <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-colors z-10 shrink-0">
               <ChevronLeft className="w-6 h-6" />
             </button>
             <div className="relative flex-grow h-[75vh] px-2">
@@ -528,7 +523,7 @@ export default function MamboBeachHotel() {
                 className="object-contain rounded-lg"
               />
             </div>
-            <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
+            <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-colors z-10 shrink-0">
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>

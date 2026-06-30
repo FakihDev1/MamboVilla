@@ -50,7 +50,7 @@ export default function HomeLanding() {
               className="px-7 py-3.5 rounded-2xl shadow-lg text-sm group"
             >
               <span>Explore Mambo Beach Hotel</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4" />
             </Button>
             <Button
               href="https://www.booking.com/"
@@ -102,7 +102,7 @@ export default function HomeLanding() {
               alt="Mambo Beach Hotel — Mnemba Island Views, Zanzibar"
               fill
               sizes="(min-width: 1024px) 60vw, 100vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
@@ -147,7 +147,7 @@ export default function HomeLanding() {
                 className="w-full py-3.5 rounded-xl shadow-sm text-sm mb-2 group/btn"
               >
                 <span>View Rooms & Book</span>
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4" />
               </Button>
               <a
                 href="https://www.booking.com/"
@@ -184,7 +184,7 @@ export default function HomeLanding() {
             <h3 className="font-display font-bold text-white text-lg lg:text-xl mb-1">Mambo Hills Safari Lodge</h3>
             <p className="text-stone-400 text-sm font-light truncate">Mikumi National Park, Tanzania · Now taking expressions of interest</p>
           </div>
-          <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
+          <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white transition-colors shrink-0" />
         </Link>
       </section>
 
