@@ -28,7 +28,7 @@ export default function Home() {
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* Sticky Tab Bar */}
-      <div className="sticky top-20 z-40 bg-white/80 backdrop-blur-md border-b border-stone-200 shadow-sm">
+      <div className="hidden sm:block sticky top-20 z-40 bg-white/80 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <nav className="flex items-center gap-8 overflow-x-auto whitespace-nowrap hide-scrollbar">
             <button 
