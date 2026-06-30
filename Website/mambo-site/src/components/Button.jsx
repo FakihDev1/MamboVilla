@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 
 const VARIANTS = {
   primary: 'bg-brand hover:bg-brand-hover text-white',
@@ -17,15 +18,30 @@ export default function Button({
   children,
   ...props
 }) {
-  const Component = href ? 'a' : 'button';
+  const isInternalLink = href && href.startsWith('/');
   const base =
     'font-bold transition-all inline-flex items-center justify-center gap-2 cursor-pointer';
   const classes = [base, VARIANTS[variant] ?? VARIANTS.primary, className].join(' ');
-  const typeProp = href ? {} : { type: props.type ?? 'button' };
+
+  if (isInternalLink) {
+    return (
+      <Link href={href} className={classes} {...props}>
+        {children}
+      </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a href={href} className={classes} {...props}>
+        {children}
+      </a>
+    );
+  }
 
   return (
-    <Component href={href} className={classes} {...props} {...typeProp}>
+    <button className={classes} {...props} type={props.type ?? 'button'}>
       {children}
-    </Component>
+    </button>
   );
 }

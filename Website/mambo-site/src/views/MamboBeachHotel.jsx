@@ -9,11 +9,11 @@ import {
   Image as ImageIcon, X, ChevronLeft, ChevronRight,
   Compass, Star, Users, Camera
 } from 'lucide-react';
-import InquiryModal from './InquiryModal';
-import ReviewsSection from './ReviewsSection';
-import Button from './Button';
-import GALLERY from '../data/mamboBeachHotel/gallery';
-import FAQS from '../data/mamboBeachHotel/faqs';
+import InquiryModal from '@/components/InquiryModal';
+import ReviewsSection from '@/components/ReviewsSection';
+import Button from '@/components/Button';
+import GALLERY from '@/data/mamboBeachHotel/gallery';
+import FAQS from '@/data/mamboBeachHotel/faqs';
 
 gsap.registerPlugin(ScrollTrigger);
 

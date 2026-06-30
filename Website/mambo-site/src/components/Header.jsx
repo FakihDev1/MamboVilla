@@ -1,24 +1,29 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Mail, X, Menu } from 'lucide-react';
 import InquiryModal from './InquiryModal';
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home' },
-  { id: 'mambo-beach', label: 'Mambo Beach Hotel' },
-  { id: 'mambo-safari', label: 'Mambo Hills Safari Lodge' },
+  { href: '/', label: 'Home' },
+  { href: '/mambo-beach', label: 'Mambo Beach Hotel' },
+  { href: '/mambo-safari', label: 'Mambo Hills Safari Lodge' },
 ];
 
-export default function Header({ activeTab, setActiveTab }) {
+export default function Header() {
+  const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoOpen, setIsLogoOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleNavClick = (tabId) => {
-    setActiveTab(tabId);
-    setIsMenuOpen(false);
-  };
+  const defaultProperty =
+    pathname === '/mambo-beach'
+      ? 'Mambo Beach Hotel'
+      : pathname === '/mambo-safari'
+      ? 'Mambo Hills Safari Lodge'
+      : 'Mambo Hotel Group';
 
   return (
     <>
@@ -40,8 +45,8 @@ export default function Header({ activeTab, setActiveTab }) {
             </button>
 
             {/* Brand text — click to go home */}
-            <button
-              onClick={() => setActiveTab('home')}
+            <Link
+              href="/"
               className="cursor-pointer text-left focus:outline-none group"
             >
               <span className="font-display font-bold text-stone-900 text-lg md:text-xl tracking-tight block leading-none group-hover:text-ocean-700 transition-colors">
@@ -50,7 +55,7 @@ export default function Header({ activeTab, setActiveTab }) {
               <span className="text-[10px] text-stone-500 font-medium tracking-widest uppercase block mt-1">
                 Boutique Tanzania
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Global Action CTA Button */}
@@ -91,21 +96,25 @@ export default function Header({ activeTab, setActiveTab }) {
             className="sm:hidden border-t border-stone-200 bg-white px-6 py-3"
           >
             <ul className="flex flex-col">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => handleNavClick(item.id)}
-                    aria-current={activeTab === item.id ? 'page' : undefined}
-                    className={`w-full text-left py-3 px-2 rounded-lg font-semibold text-sm transition-colors cursor-pointer ${
-                      activeTab === item.id
-                        ? 'text-brand bg-brand/5'
-                        : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`block w-full text-left py-3 px-2 rounded-lg font-semibold text-sm transition-colors cursor-pointer ${
+                        isActive
+                          ? 'text-brand bg-brand/5'
+                          : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         )}
@@ -113,13 +122,7 @@ export default function Header({ activeTab, setActiveTab }) {
         <InquiryModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          defaultProperty={
-            activeTab === 'mambo-beach'
-              ? 'Mambo Beach Hotel'
-              : activeTab === 'mambo-safari'
-              ? 'Mambo Hills Safari Lodge'
-              : 'Mambo Hotel Group'
-          }
+          defaultProperty={defaultProperty}
         />
       </header>
 

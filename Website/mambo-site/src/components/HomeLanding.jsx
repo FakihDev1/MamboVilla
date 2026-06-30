@@ -1,10 +1,11 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowRight, Star, Waves, Utensils, Wind, Wifi, MapPin } from 'lucide-react';
 import Button from './Button';
 
-export default function HomeLanding({ setActiveTab }) {
+export default function HomeLanding() {
   return (
     <div className="w-full">
 
@@ -43,7 +44,7 @@ export default function HomeLanding({ setActiveTab }) {
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
-              onClick={() => setActiveTab('mambo-beach')}
+              href="/mambo-beach"
               className="px-7 py-3.5 rounded-2xl shadow-lg text-sm group"
             >
               <span>Explore Mambo Beach Hotel</span>
@@ -89,12 +90,9 @@ export default function HomeLanding({ setActiveTab }) {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 items-stretch">
 
           {/* Hero photo — dominant */}
-          <div
-            className="lg:col-span-3 rounded-3xl overflow-hidden relative cursor-pointer group min-h-[300px] lg:min-h-[480px]"
-            onClick={() => setActiveTab('mambo-beach')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && setActiveTab('mambo-beach')}
+          <Link
+            href="/mambo-beach"
+            className="lg:col-span-3 rounded-3xl overflow-hidden relative cursor-pointer group min-h-[300px] lg:min-h-[480px] block"
             aria-label="View Mambo Beach Hotel"
           >
             <img
@@ -110,7 +108,7 @@ export default function HomeLanding({ setActiveTab }) {
               <h2 className="font-display text-white font-black text-2xl sm:text-3xl">Mambo Beach Hotel</h2>
               <p className="text-stone-300 text-sm mt-1">Matemwe, Zanzibar · 5 rooms · Direct beachfront</p>
             </div>
-          </div>
+          </Link>
 
           {/* Info + booking panel */}
           <div className="lg:col-span-2 flex flex-col gap-6">
@@ -141,7 +139,7 @@ export default function HomeLanding({ setActiveTab }) {
                 £62 <span className="text-base font-normal text-muted">/ night</span>
               </p>
               <Button
-                onClick={() => setActiveTab('mambo-beach')}
+                href="/mambo-beach"
                 className="w-full py-3.5 rounded-xl shadow-sm text-sm mb-2 group/btn"
               >
                 <span>View Rooms & Book</span>
@@ -162,8 +160,8 @@ export default function HomeLanding({ setActiveTab }) {
 
       {/* ═══ SAFARI: Coming Soon ═══ */}
       <section className="px-6 lg:px-16 pb-20 max-w-7xl mx-auto">
-        <button
-          onClick={() => setActiveTab('mambo-safari')}
+        <Link
+          href="/mambo-safari"
           className="w-full flex items-center gap-5 sm:gap-8 bg-stone-950 hover:bg-stone-900 rounded-3xl p-6 lg:p-8 text-left transition-colors group cursor-pointer"
         >
           <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden">
@@ -181,7 +179,7 @@ export default function HomeLanding({ setActiveTab }) {
             <p className="text-stone-400 text-sm font-light truncate">Mikumi National Park, Tanzania · Now taking expressions of interest</p>
           </div>
           <ArrowRight className="w-5 h-5 text-stone-500 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0" />
-        </button>
+        </Link>
       </section>
 
     </div>
