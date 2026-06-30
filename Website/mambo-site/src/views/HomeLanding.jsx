@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight, Star, Waves, Utensils, Wind, Wifi, MapPin } from 'lucide-react';
 import Button from '@/components/Button';
 
@@ -11,10 +12,13 @@ export default function HomeLanding() {
 
       {/* ═══ HERO: Full-bleed destination photography ═══ */}
       <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
-        <img
+        <Image
           src="/images/mamboBeachHotel/beachside view.jpg"
           alt="Matemwe Beach, Zanzibar"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         {/* Gradient: darkest at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/40 to-stone-900/5" />
@@ -95,10 +99,12 @@ export default function HomeLanding() {
             className="lg:col-span-3 rounded-3xl overflow-hidden relative cursor-pointer group min-h-[300px] lg:min-h-[480px] block"
             aria-label="View Mambo Beach Hotel"
           >
-            <img
+            <Image
               src="/images/mamboBeachHotel/mnemba view.JPG"
               alt="Mambo Beach Hotel — Mnemba Island Views, Zanzibar"
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              fill
+              sizes="(min-width: 1024px) 60vw, 100vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
@@ -164,11 +170,13 @@ export default function HomeLanding() {
           href="/mambo-safari"
           className="w-full flex items-center gap-5 sm:gap-8 bg-stone-950 hover:bg-stone-900 rounded-3xl p-6 lg:p-8 text-left transition-colors group cursor-pointer"
         >
-          <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden">
-            <img
+          <div className="shrink-0 w-16 h-16 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-xl overflow-hidden relative">
+            <Image
               src="/images/Mambo Hills Safari Lodge logo.jpg"
               alt="Mambo Hills Safari Lodge"
-              className="w-full h-full object-contain"
+              fill
+              sizes="(min-width: 1024px) 112px, (min-width: 640px) 96px, 64px"
+              className="object-contain"
             />
           </div>
           <div className="flex-grow min-w-0">

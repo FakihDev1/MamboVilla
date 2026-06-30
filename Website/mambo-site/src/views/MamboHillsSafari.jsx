@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function MamboHillsSafari() {
   return (
@@ -11,9 +12,12 @@ export default function MamboHillsSafari() {
       <div className="max-w-xl w-full text-center relative z-10">
         {/* Lodge Logo */}
         <div className="bg-stone-950 p-8 rounded-3xl border border-amber-900/10 shadow-md mb-10 max-w-[320px] mx-auto transition-transform duration-500 hover:scale-[1.02]">
-          <img 
+          <Image 
             src="/images/Mambo Hills Safari Lodge logo.jpg" 
             alt="Mambo Hills Safari Lodge Logo" 
+            width={888}
+            height={813}
+            priority
             className="w-full h-auto object-contain"
           />
         </div>

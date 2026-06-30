@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Mail, X, Menu } from 'lucide-react';
 import InquiryModal from './InquiryModal';
@@ -37,9 +38,12 @@ export default function Header() {
               className="cursor-pointer focus:outline-none group"
               aria-label="View logo enlarged"
             >
-              <img
+              <Image
                 src="/images/Mambo Hotel Group logo.png"
                 alt="Mambo Hotel Group Logo"
+                width={40}
+                height={40}
+                priority
                 className="w-10 h-10 object-contain rounded-xl shadow-md transition-all duration-300 group-hover:scale-110 group-active:scale-95"
               />
             </button>
@@ -138,9 +142,11 @@ export default function Header() {
             style={{ animation: 'scaleIn 0.25s cubic-bezier(0.34,1.56,0.64,1)' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
               src="/images/Mambo Hotel Group logo.png"
               alt="Mambo Hotel Group Logo"
+              width={1254}
+              height={1254}
               className="w-full h-auto object-contain rounded-2xl"
             />
             <p className="text-stone-500 text-xs font-medium tracking-widest uppercase">

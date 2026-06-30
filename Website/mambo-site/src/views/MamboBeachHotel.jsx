@@ -9,6 +9,7 @@ import {
   Image as ImageIcon, X, ChevronLeft, ChevronRight,
   Compass, Star, Users, Camera
 } from 'lucide-react';
+import Image from 'next/image';
 import InquiryModal from '@/components/InquiryModal';
 import ReviewsSection from '@/components/ReviewsSection';
 import Button from '@/components/Button';
@@ -95,10 +96,13 @@ export default function MamboBeachHotel() {
           1. HERO — Full-bleed photography
       ═══════════════════════════════════════════ */}
       <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
-        <img
+        <Image
           src="/images/mamboBeachHotel/externalview10.jpeg"
           alt="Mambo Beach Hotel — Matemwe, Zanzibar"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/30 to-transparent" />
 
@@ -110,9 +114,12 @@ export default function MamboBeachHotel() {
 
           {/* Official logo */}
           <div className="mb-5">
-            <img
+            <Image
               src="/images/mamboBeachHotel/Mambo beach hotel logo.jpg"
               alt="Mambo Beach Hotel"
+              width={1254}
+              height={1254}
+              priority
               className="h-14 w-auto object-contain drop-shadow-2xl"
             />
           </div>
@@ -180,14 +187,15 @@ export default function MamboBeachHotel() {
           {GALLERY.slice(0, 10).map((img, i) => (
             <div
               key={i}
-              className="snap-start shrink-0 w-64 h-48 rounded-2xl overflow-hidden cursor-pointer"
+              className="snap-start shrink-0 w-64 h-48 rounded-2xl overflow-hidden cursor-pointer relative"
               onClick={() => setLightboxIndex(i)}
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover"
-                loading={i < 3 ? 'eager' : 'lazy'}
+                fill
+                sizes="256px"
+                className="object-cover"
               />
             </div>
           ))}
@@ -209,19 +217,19 @@ export default function MamboBeachHotel() {
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-4 gap-3 h-[60vh] min-h-[400px]">
             <div
-              className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group"
+              className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group relative"
               onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('all'); }}
             >
-              <img src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
-              <img src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
+              <Image src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
-              <img src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
+              <Image src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
-            <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
-              <img src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
+              <Image src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
           </div>
           <button
@@ -298,12 +306,13 @@ export default function MamboBeachHotel() {
       ═══════════════════════════════════════════ */}
       <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="rounded-3xl overflow-hidden aspect-[4/3]">
-            <img
+          <div className="rounded-3xl overflow-hidden aspect-[4/3] relative">
+            <Image
               src="/images/mamboBeachHotel/beachside dining2.jpg"
               alt="Beachside Dining at Mambo Beach Hotel"
-              className="w-full h-full object-cover"
-              loading="lazy"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
             />
           </div>
           <div>
@@ -482,11 +491,12 @@ export default function MamboBeachHotel() {
                   onClick={() => setLightboxIndex(index)}
                   className="group aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer relative bg-stone-200"
                 >
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/20 transition-all duration-300 flex items-end p-4">
                     <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity bg-stone-950/40 backdrop-blur-md px-3 py-1.5 rounded-lg">
@@ -526,11 +536,13 @@ export default function MamboBeachHotel() {
             <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
               <ChevronLeft className="w-6 h-6" />
             </button>
-            <div className="flex-grow flex items-center justify-center px-2 max-h-[75vh]">
-              <img
+            <div className="relative flex-grow h-[75vh] px-2">
+              <Image
                 src={filteredImages[lightboxIndex].src}
                 alt={filteredImages[lightboxIndex].alt}
-                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
+                fill
+                sizes="100vw"
+                className="object-contain rounded-lg"
               />
             </div>
             <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, ShieldCheck, Waves, Trees } from 'lucide-react';
 
 export default function Footer() {
@@ -14,9 +15,11 @@ export default function Footer() {
             href="/"
             className="flex items-center gap-2 group cursor-pointer focus:outline-none w-fit"
           >
-            <img 
+            <Image 
               src="/images/Mambo Hotel Group logo.png" 
               alt="Mambo Hotel Group Logo" 
+              width={32}
+              height={32}
               className="w-8 h-8 object-contain rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105"
             />
             <span className="font-display font-bold text-white text-lg tracking-tight group-hover:text-stone-200 transition-colors">
