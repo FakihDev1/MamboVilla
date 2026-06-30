@@ -1,9 +1,6 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   MapPin, Waves, Utensils, Wifi, Wind, ArrowRight,
   Image as ImageIcon, X, ChevronLeft, ChevronRight,
@@ -16,10 +13,7 @@ import Button from '@/components/Button';
 import GALLERY from '@/data/mamboBeachHotel/gallery';
 import FAQS from '@/data/mamboBeachHotel/faqs';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function MamboBeachHotel() {
-  const containerRef = useRef(null);
   const touchStartX = useRef(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -78,19 +72,8 @@ export default function MamboBeachHotel() {
     touchStartX.current = null;
   };
 
-  // GSAP scroll-reveal for sections
-  useGSAP(() => {
-    const sections = gsap.utils.toArray('.reveal-section');
-    sections.forEach(section => {
-      gsap.from(section, {
-        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: section, start: 'top 88%' },
-      });
-    });
-  }, { scope: containerRef });
-
   return (
-    <div ref={containerRef} className="w-full pb-24">
+    <div className="w-full pb-24">
 
       {/* ═══════════════════════════════════════════
           1. HERO — Full-bleed photography
@@ -245,7 +228,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           4. WHAT MAKES IT SPECIAL — 4 icon cards
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16 mt-8 md:mt-0">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16 mt-8 md:mt-0">
         <h2 className="font-display text-2xl lg:text-3xl font-bold text-stone-900 mb-8 text-center">
           What makes it special
         </h2>
@@ -270,7 +253,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           5. MID-PAGE BOOKING CTA
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="bg-brand rounded-3xl p-8 text-center text-white">
           <p className="text-ocean-200 text-xs uppercase tracking-widest font-semibold mb-2">Ready to book?</p>
           <h2 className="font-display font-black text-2xl sm:text-3xl mb-2">From £62 per night</h2>
@@ -304,7 +287,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           7. DINING
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="rounded-3xl overflow-hidden aspect-[4/3] relative">
             <Image
@@ -333,7 +316,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           8. AMENITIES + GOOD TO KNOW
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Amenities */}
           <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
@@ -380,7 +363,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           9. FAQS
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-3xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-3xl mx-auto mb-16">
         <h2 className="font-display text-2xl font-bold text-stone-900 text-center mb-8">
           Frequently Asked Questions
         </h2>
@@ -410,7 +393,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           10. FINAL CTA
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
+      <section className="max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
         <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-3">
           Ready for paradise?
         </h2>
