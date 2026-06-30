@@ -43,7 +43,7 @@ export default function HomeLanding({ setActiveTab }) {
           <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={() => setActiveTab('mambo-beach')}
-              className="px-7 py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
+              className="px-7 py-3.5 bg-ocean-700 hover:bg-ocean-600 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
             >
               <span>Explore Mambo Beach Hotel</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -75,7 +75,7 @@ export default function HomeLanding({ setActiveTab }) {
             ].map(({ value, label }) => (
               <div key={label} className="px-5 text-center first:pl-0 last:pr-0">
                 <p className="font-display font-black text-stone-900 text-xl">{value}</p>
-                <p className="text-stone-400 text-xs mt-0.5">{label}</p>
+                <p className="text-stone-600 text-xs mt-0.5">{label}</p>
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export default function HomeLanding({ setActiveTab }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="inline-block bg-ocean-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+              <span className="inline-block bg-ocean-700 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
                 Open Now
               </span>
               <h2 className="font-display text-white font-black text-2xl sm:text-3xl">Mambo Beach Hotel</h2>
@@ -134,13 +134,13 @@ export default function HomeLanding({ setActiveTab }) {
 
             {/* Booking panel */}
             <div className="bg-stone-50 rounded-2xl p-5 border border-stone-200 mt-auto">
-              <p className="text-stone-500 text-xs uppercase tracking-wider font-semibold mb-1">Starting from</p>
+              <p className="text-stone-600 text-xs uppercase tracking-wider font-semibold mb-1">Starting from</p>
               <p className="font-display font-black text-3xl text-stone-900 mb-4">
-                £62 <span className="text-base font-normal text-stone-400">/ night</span>
+                £62 <span className="text-base font-normal text-stone-600">/ night</span>
               </p>
               <button
                 onClick={() => setActiveTab('mambo-beach')}
-                className="w-full py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer text-sm mb-2"
+                className="w-full py-3.5 bg-ocean-700 hover:bg-ocean-600 text-white font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer text-sm mb-2"
               >
                 <span>View Rooms & Book</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

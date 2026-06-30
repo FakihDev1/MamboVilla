@@ -27,16 +27,16 @@ export default function Footer({ setActiveTab }) {
               Mambo Hotel Group
             </span>
           </button>
-          <p className="text-stone-500 font-light text-xs leading-relaxed max-w-xs">
+          <p className="text-stone-400 font-light text-xs leading-relaxed max-w-xs">
             A boutique hospitality group managing Mambo Beach Hotel on the Matemwe coast in Zanzibar, and the upcoming Mambo Hills Safari Lodge in Mikumi, Tanzania.
           </p>
         </div>
 
         {/* Column 2: Properties Direct Links */}
         <div>
-          <h4 className="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">
+          <h3 className="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">
             Our Boutique Properties
-          </h4>
+          </h3>
           <ul className="flex flex-col gap-3 text-xs">
             <li>
               <button 
@@ -61,9 +61,9 @@ export default function Footer({ setActiveTab }) {
 
         {/* Column 3: Contact & Details */}
         <div>
-          <h4 className="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">
+          <h3 className="text-white font-display font-semibold text-sm uppercase tracking-wider mb-4">
             Reservations Office
-          </h4>
+          </h3>
           <ul className="flex flex-col gap-3 text-xs font-light">
             <li className="flex items-start gap-2.5">
               <MapPin className="w-4 h-4 text-stone-500 shrink-0 mt-0.5" />
@@ -84,10 +84,10 @@ export default function Footer({ setActiveTab }) {
 
         {/* Column 4: Compliance & Security */}
         <div className="flex flex-col gap-4">
-          <h4 className="text-white font-display font-semibold text-sm uppercase tracking-wider">
+          <h3 className="text-white font-display font-semibold text-sm uppercase tracking-wider">
             Trust & Security
-          </h4>
-          <div className="flex flex-col gap-2.5 text-xs text-stone-500 font-medium">
+          </h3>
+          <div className="flex flex-col gap-2.5 text-xs text-stone-400 font-medium">
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
               <span>Cloudflare Turnstile Protected</span>
@@ -101,7 +101,7 @@ export default function Footer({ setActiveTab }) {
       </div>
 
       {/* Underbar Copyright */}
-      <div className="border-t border-stone-800/80 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-600 font-light">
+      <div className="border-t border-stone-800/80 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-light">
         <p>&copy; {new Date().getFullYear()} Mambo Hotel Group. All rights reserved.</p>
         <p className="flex gap-4">
           <a href="/privacy" className="hover:underline">Privacy Policy</a>

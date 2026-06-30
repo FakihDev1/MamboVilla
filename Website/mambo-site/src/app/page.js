@@ -34,7 +34,7 @@ export default function Home() {
             <button 
               onClick={() => setActiveTab('home')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'home' ? 'text-ocean-600' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'home' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Home
@@ -45,7 +45,7 @@ export default function Home() {
             <button 
               onClick={() => setActiveTab('mambo-beach')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'mambo-beach' ? 'text-ocean-600' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'mambo-beach' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Mambo Beach Hotel
@@ -56,7 +56,7 @@ export default function Home() {
             <button 
               onClick={() => setActiveTab('mambo-safari')}
               className={`py-4 font-semibold text-sm transition-colors relative cursor-pointer ${
-                activeTab === 'mambo-safari' ? 'text-ocean-600' : 'text-stone-500 hover:text-stone-800'
+                activeTab === 'mambo-safari' ? 'text-ocean-700' : 'text-stone-500 hover:text-stone-800'
               }`}
             >
               Mambo Hills Safari Lodge

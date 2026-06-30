@@ -136,7 +136,7 @@ export default function MamboBeachHotel() {
               href="https://www.booking.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm shadow-lg"
+              className="px-7 py-3.5 bg-ocean-700 hover:bg-ocean-600 text-white font-bold rounded-2xl transition-all flex items-center justify-center gap-2 text-sm shadow-lg"
             >
               Book Now <ArrowRight className="w-4 h-4" />
             </a>
@@ -164,7 +164,7 @@ export default function MamboBeachHotel() {
           ].map(({ value, label }) => (
             <div key={label} className="px-6 py-4 text-center">
               <p className="font-display font-bold text-stone-900 text-sm whitespace-nowrap">{value}</p>
-              <p className="text-stone-400 text-[11px] whitespace-nowrap">{label}</p>
+              <p className="text-stone-600 text-[11px] whitespace-nowrap">{label}</p>
             </div>
           ))}
         </div>
