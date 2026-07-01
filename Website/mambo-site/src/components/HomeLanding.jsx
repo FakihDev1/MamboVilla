@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { ArrowRight, Star, Waves, Utensils, Wind, Wifi, MapPin } from 'lucide-react';
+import Button from './Button';
 
 export default function HomeLanding({ setActiveTab }) {
   return (
@@ -41,21 +42,22 @@ export default function HomeLanding({ setActiveTab }) {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <button
+            <Button
               onClick={() => setActiveTab('mambo-beach')}
-              className="px-7 py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2 group cursor-pointer text-sm"
+              className="px-7 py-3.5 rounded-2xl shadow-lg text-sm group"
             >
               <span>Explore Mambo Beach Hotel</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <a
+            </Button>
+            <Button
               href="https://www.booking.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-7 py-3.5 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold rounded-2xl transition-all flex items-center justify-center text-sm"
+              variant="glass"
+              className="px-7 py-3.5 rounded-2xl text-sm"
             >
               Book on Booking.com
-            </a>
+            </Button>
           </div>
         </div>
       </section>
@@ -75,7 +77,7 @@ export default function HomeLanding({ setActiveTab }) {
             ].map(({ value, label }) => (
               <div key={label} className="px-5 text-center first:pl-0 last:pr-0">
                 <p className="font-display font-black text-stone-900 text-xl">{value}</p>
-                <p className="text-stone-400 text-xs mt-0.5">{label}</p>
+                <p className="text-muted text-xs mt-0.5">{label}</p>
               </div>
             ))}
           </div>
@@ -102,7 +104,7 @@ export default function HomeLanding({ setActiveTab }) {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-stone-900/75 via-stone-900/10 to-transparent" />
             <div className="absolute bottom-6 left-6 right-6">
-              <span className="inline-block bg-ocean-500 text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
+              <span className="inline-block bg-brand text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
                 Open Now
               </span>
               <h2 className="font-display text-white font-black text-2xl sm:text-3xl">Mambo Beach Hotel</h2>
@@ -113,7 +115,7 @@ export default function HomeLanding({ setActiveTab }) {
           {/* Info + booking panel */}
           <div className="lg:col-span-2 flex flex-col gap-6">
             <div>
-              <span className="text-xs uppercase tracking-widest text-ocean-700 font-bold block mb-3">Zanzibar Beachfront</span>
+              <span className="text-xs uppercase tracking-widest text-brand font-bold block mb-3">Zanzibar Beachfront</span>
               <h3 className="font-display font-bold text-2xl text-stone-900 mb-5">Why guests love it</h3>
               <div className="space-y-3.5">
                 {[
@@ -134,22 +136,22 @@ export default function HomeLanding({ setActiveTab }) {
 
             {/* Booking panel */}
             <div className="bg-stone-50 rounded-2xl p-5 border border-stone-200 mt-auto">
-              <p className="text-stone-500 text-xs uppercase tracking-wider font-semibold mb-1">Starting from</p>
+              <p className="text-muted text-xs uppercase tracking-wider font-semibold mb-1">Starting from</p>
               <p className="font-display font-black text-3xl text-stone-900 mb-4">
-                £62 <span className="text-base font-normal text-stone-400">/ night</span>
+                £62 <span className="text-base font-normal text-muted">/ night</span>
               </p>
-              <button
+              <Button
                 onClick={() => setActiveTab('mambo-beach')}
-                className="w-full py-3.5 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl shadow-sm transition-all flex items-center justify-center gap-2 group/btn cursor-pointer text-sm mb-2"
+                className="w-full py-3.5 rounded-xl shadow-sm text-sm mb-2 group/btn"
               >
                 <span>View Rooms & Book</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </button>
+              </Button>
               <a
                 href="https://www.booking.com/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block w-full text-center py-2.5 text-ocean-700 hover:text-ocean-600 font-semibold text-sm transition-colors"
+                className="block w-full text-center py-2.5 text-brand hover:text-brand-hover font-semibold text-sm transition-colors"
               >
                 Book on Booking.com →
               </a>

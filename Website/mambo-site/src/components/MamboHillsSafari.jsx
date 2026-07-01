@@ -32,7 +32,7 @@ export default function MamboHillsSafari() {
         
         {/* Contact coordinates */}
         <div className="bg-white p-6 rounded-2xl border border-stone-200/60 shadow-sm max-w-sm mx-auto">
-          <p className="text-xs text-stone-400 font-medium uppercase tracking-wider mb-2">
+          <p className="text-xs text-muted font-medium uppercase tracking-wider mb-2">
             Inquiries & Updates
           </p>
           <a 
