@@ -10,12 +10,18 @@ const inter = Inter({
 const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
 });
 
 export const metadata = {
   title: "Mambo Hotel Group | Mambo Beach Hotel",
   description: "Welcome to Mambo Beach Hotel, a premier full-service hotel in Matemwe, Zanzibar. Experience luxury, coastal charm, and exceptional central services.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }) {

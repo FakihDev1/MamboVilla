@@ -1,32 +1,29 @@
-"use client";
-
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Mail, Phone, MapPin, ShieldCheck, Waves, Trees } from 'lucide-react';
 
-export default function Footer({ setActiveTab }) {
-  const handlePropertyClick = (tabId) => {
-    setActiveTab(tabId);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
+export default function Footer() {
   return (
     <footer className="bg-stone-950 text-stone-400 pt-16 pb-12 border-t border-stone-800 px-6 lg:px-12">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         {/* Column 1: Brand & Logo */}
         <div className="flex flex-col gap-4">
-          <button
-            onClick={() => handlePropertyClick('home')}
+          <Link
+            href="/"
             className="flex items-center gap-2 group cursor-pointer focus:outline-none w-fit"
           >
-            <img 
+            <Image 
               src="/images/Mambo Hotel Group logo.png" 
               alt="Mambo Hotel Group Logo" 
-              className="w-8 h-8 object-contain rounded-lg shadow-sm transition-transform duration-300 group-hover:scale-105"
+              width={32}
+              height={32}
+              className="w-8 h-8 object-contain rounded-lg shadow-sm"
             />
             <span className="font-display font-bold text-white text-lg tracking-tight group-hover:text-stone-200 transition-colors">
               Mambo Hotel Group
             </span>
-          </button>
+          </Link>
           <p className="text-stone-400 font-light text-xs leading-relaxed max-w-xs">
             A boutique hospitality group managing Mambo Beach Hotel on the Matemwe coast in Zanzibar, and the upcoming Mambo Hills Safari Lodge in Mikumi, Tanzania.
           </p>
@@ -39,22 +36,22 @@ export default function Footer({ setActiveTab }) {
           </h3>
           <ul className="flex flex-col gap-3 text-xs">
             <li>
-              <button 
-                onClick={() => handlePropertyClick('mambo-beach')}
+              <Link 
+                href="/mambo-beach"
                 className="hover:text-ocean-400 transition-colors flex items-center gap-2 cursor-pointer focus:outline-none"
               >
                 <Waves className="w-3.5 h-3.5 text-ocean-600" />
                 <span>Mambo Beach Hotel – Zanzibar</span>
-              </button>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => handlePropertyClick('mambo-safari')}
+              <Link 
+                href="/mambo-safari"
                 className="hover:text-amber-400 transition-colors flex items-center gap-2 cursor-pointer focus:outline-none"
               >
                 <Trees className="w-3.5 h-3.5 text-amber-600" />
                 <span>Mambo Hills Safari Lodge – Mikumi</span>
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
@@ -104,9 +101,9 @@ export default function Footer({ setActiveTab }) {
       <div className="border-t border-stone-800/80 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-stone-400 font-light">
         <p>&copy; {new Date().getFullYear()} Mambo Hotel Group. All rights reserved.</p>
         <p className="flex gap-4">
-          <a href="/privacy" className="hover:underline">Privacy Policy</a>
+          <Link href="/privacy" className="hover:underline">Privacy Policy</Link>
           <span>&bull;</span>
-          <a href="/terms" className="hover:underline">Terms of Service</a>
+          <Link href="/terms" className="hover:underline">Terms of Service</Link>
         </p>
       </div>
     </footer>
