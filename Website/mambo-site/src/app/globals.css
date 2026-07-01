@@ -23,10 +23,6 @@
   --font-body: 'Inter', sans-serif;
 }
 
-:root {
-  scroll-behavior: smooth;
-}
-
 * {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;

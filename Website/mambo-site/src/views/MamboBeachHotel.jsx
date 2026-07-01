@@ -1,24 +1,19 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   MapPin, Waves, Utensils, Wifi, Wind, ArrowRight,
   Image as ImageIcon, X, ChevronLeft, ChevronRight,
   Compass, Star, Users, Camera
 } from 'lucide-react';
-import InquiryModal from './InquiryModal';
-import ReviewsSection from './ReviewsSection';
-import Button from './Button';
-import GALLERY from '../data/mamboBeachHotel/gallery';
-import FAQS from '../data/mamboBeachHotel/faqs';
-
-gsap.registerPlugin(ScrollTrigger);
+import Image from 'next/image';
+import InquiryModal from '@/components/InquiryModal';
+import ReviewsSection from '@/components/ReviewsSection';
+import Button from '@/components/Button';
+import GALLERY from '@/data/mamboBeachHotel/gallery';
+import FAQS from '@/data/mamboBeachHotel/faqs';
 
 export default function MamboBeachHotel() {
-  const containerRef = useRef(null);
   const touchStartX = useRef(null);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,28 +72,20 @@ export default function MamboBeachHotel() {
     touchStartX.current = null;
   };
 
-  // GSAP scroll-reveal for sections
-  useGSAP(() => {
-    const sections = gsap.utils.toArray('.reveal-section');
-    sections.forEach(section => {
-      gsap.from(section, {
-        y: 40, opacity: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: section, start: 'top 88%' },
-      });
-    });
-  }, { scope: containerRef });
-
   return (
-    <div ref={containerRef} className="w-full pb-24">
+    <div className="w-full pb-24">
 
       {/* ═══════════════════════════════════════════
           1. HERO — Full-bleed photography
       ═══════════════════════════════════════════ */}
       <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
-        <img
+        <Image
           src="/images/mamboBeachHotel/externalview10.jpeg"
           alt="Mambo Beach Hotel — Matemwe, Zanzibar"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/30 to-transparent" />
 
@@ -110,9 +97,12 @@ export default function MamboBeachHotel() {
 
           {/* Official logo */}
           <div className="mb-5">
-            <img
+            <Image
               src="/images/mamboBeachHotel/Mambo beach hotel logo.jpg"
               alt="Mambo Beach Hotel"
+              width={1254}
+              height={1254}
+              priority
               className="h-14 w-auto object-contain drop-shadow-2xl"
             />
           </div>
@@ -180,14 +170,15 @@ export default function MamboBeachHotel() {
           {GALLERY.slice(0, 10).map((img, i) => (
             <div
               key={i}
-              className="snap-start shrink-0 w-64 h-48 rounded-2xl overflow-hidden cursor-pointer"
+              className="snap-start shrink-0 w-64 h-48 rounded-2xl overflow-hidden cursor-pointer relative"
               onClick={() => setLightboxIndex(i)}
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
-                className="w-full h-full object-cover"
-                loading={i < 3 ? 'eager' : 'lazy'}
+                fill
+                sizes="256px"
+                className="object-cover"
               />
             </div>
           ))}
@@ -209,24 +200,24 @@ export default function MamboBeachHotel() {
         <div className="relative max-w-7xl mx-auto">
           <div className="grid grid-cols-4 gap-3 h-[60vh] min-h-[400px]">
             <div
-              className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group"
+              className="col-span-2 row-span-2 rounded-3xl overflow-hidden cursor-pointer group relative"
               onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('all'); }}
             >
-              <img src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <Image src="/images/mamboBeachHotel/externalview10.jpeg" alt="Mambo Beach Hotel Aerial" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
             </div>
-            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
-              <img src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('rooms'); }}>
+              <Image src="/images/mamboBeachHotel/bedroom.JPG" alt="Luxury Suite" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
             </div>
-            <div className="rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
-              <img src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('dining'); }}>
+              <Image src="/images/mamboBeachHotel/beachside dining.JPG" alt="Beachside Dining" fill sizes="(min-width: 768px) 25vw, 100vw" className="object-cover" />
             </div>
-            <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
-              <img src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="col-span-2 rounded-3xl overflow-hidden cursor-pointer group relative" onClick={() => { setIsGalleryOpen(true); setActiveGalleryCategory('exterior'); }}>
+              <Image src="/images/mamboBeachHotel/mnemba view.JPG" alt="Mnemba Island Views" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
             </div>
           </div>
           <button
             onClick={() => setIsGalleryOpen(true)}
-            className="absolute bottom-4 right-4 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200 flex items-center gap-2 transition-all cursor-pointer z-10"
+            className="absolute bottom-4 right-4 bg-white hover:bg-stone-50 text-stone-900 font-bold text-sm px-5 py-3 rounded-2xl shadow-md border border-stone-200 flex items-center gap-2 transition-colors cursor-pointer z-10"
           >
             <ImageIcon className="w-4 h-4 text-stone-600" />
             Show all {GALLERY.length} photos
@@ -237,7 +228,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           4. WHAT MAKES IT SPECIAL — 4 icon cards
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16 mt-8 md:mt-0">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16 mt-8 md:mt-0">
         <h2 className="font-display text-2xl lg:text-3xl font-bold text-stone-900 mb-8 text-center">
           What makes it special
         </h2>
@@ -248,7 +239,7 @@ export default function MamboBeachHotel() {
             { icon: Utensils, title: 'Home-Cooked Meals', desc: 'Fresh & served your way' },
             { icon: Users, title: '5 Rooms Only', desc: 'No crowds. Total privacy.' },
           ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm text-center hover:shadow-md hover:border-ocean-200 transition-all">
+            <div key={title} className="bg-white rounded-2xl p-5 border border-stone-200 shadow-sm text-center">
               <div className="p-3 bg-ocean-50 rounded-2xl text-ocean-600 w-fit mx-auto mb-3">
                 <Icon className="w-5 h-5" />
               </div>
@@ -262,7 +253,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           5. MID-PAGE BOOKING CTA
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="bg-brand rounded-3xl p-8 text-center text-white">
           <p className="text-ocean-200 text-xs uppercase tracking-widest font-semibold mb-2">Ready to book?</p>
           <h2 className="font-display font-black text-2xl sm:text-3xl mb-2">From £62 per night</h2>
@@ -296,14 +287,15 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           7. DINING
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="rounded-3xl overflow-hidden aspect-[4/3]">
-            <img
+          <div className="rounded-3xl overflow-hidden aspect-[4/3] relative">
+            <Image
               src="/images/mamboBeachHotel/beachside dining2.jpg"
               alt="Beachside Dining at Mambo Beach Hotel"
-              className="w-full h-full object-cover"
-              loading="lazy"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
             />
           </div>
           <div>
@@ -324,7 +316,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           8. AMENITIES + GOOD TO KNOW
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-5xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-5xl mx-auto mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Amenities */}
           <div className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
@@ -371,7 +363,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           9. FAQS
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section px-6 lg:px-12 max-w-3xl mx-auto mb-16">
+      <section className="px-6 lg:px-12 max-w-3xl mx-auto mb-16">
         <h2 className="font-display text-2xl font-bold text-stone-900 text-center mb-8">
           Frequently Asked Questions
         </h2>
@@ -401,7 +393,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           10. FINAL CTA
       ═══════════════════════════════════════════ */}
-      <section className="reveal-section max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
+      <section className="max-w-4xl mx-auto px-6 lg:px-12 text-center mb-16">
         <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-3">
           Ready for paradise?
         </h2>
@@ -414,7 +406,7 @@ export default function MamboBeachHotel() {
             className="px-8 py-4 rounded-full shadow-lg group"
           >
             Book on Booking.com
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4" />
           </Button>
           <Button
             variant="outline"
@@ -463,7 +455,7 @@ export default function MamboBeachHotel() {
               <button
                 key={cat.id}
                 onClick={() => setActiveGalleryCategory(cat.id)}
-                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-all cursor-pointer ${activeGalleryCategory === cat.id
+                className={`px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition-colors cursor-pointer ${activeGalleryCategory === cat.id
                     ? 'bg-brand text-white'
                     : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
                   }`}
@@ -482,17 +474,13 @@ export default function MamboBeachHotel() {
                   onClick={() => setLightboxIndex(index)}
                   className="group aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer relative bg-stone-200"
                 >
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.alt}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-stone-950/0 group-hover:bg-stone-950/20 transition-all duration-300 flex items-end p-4">
-                    <span className="text-white text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity bg-stone-950/40 backdrop-blur-md px-3 py-1.5 rounded-lg">
-                      {image.alt}
-                    </span>
-                  </div>
                 </div>
               ))}
               {filteredImages.length === 0 && (
@@ -523,17 +511,19 @@ export default function MamboBeachHotel() {
           </div>
 
           <div className="flex-grow flex items-center justify-between px-3 sm:px-6">
-            <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
+            <button onClick={handlePrev} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-colors z-10 shrink-0">
               <ChevronLeft className="w-6 h-6" />
             </button>
-            <div className="flex-grow flex items-center justify-center px-2 max-h-[75vh]">
-              <img
+            <div className="relative flex-grow h-[75vh] px-2">
+              <Image
                 src={filteredImages[lightboxIndex].src}
                 alt={filteredImages[lightboxIndex].alt}
-                className="max-w-full max-h-[75vh] object-contain rounded-lg shadow-2xl"
+                fill
+                sizes="100vw"
+                className="object-contain rounded-lg"
               />
             </div>
-            <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-all hover:scale-105 z-10 shrink-0">
+            <button onClick={handleNext} className="p-3 rounded-full bg-stone-900/80 hover:bg-stone-800 text-white transition-colors z-10 shrink-0">
               <ChevronRight className="w-6 h-6" />
             </button>
           </div>

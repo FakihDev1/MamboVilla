@@ -1,24 +1,30 @@
 "use client";
 
 import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Mail, X, Menu } from 'lucide-react';
 import InquiryModal from './InquiryModal';
 
 const NAV_ITEMS = [
-  { id: 'home', label: 'Home' },
-  { id: 'mambo-beach', label: 'Mambo Beach Hotel' },
-  { id: 'mambo-safari', label: 'Mambo Hills Safari Lodge' },
+  { href: '/', label: 'Home' },
+  { href: '/mambo-beach', label: 'Mambo Beach Hotel' },
+  { href: '/mambo-safari', label: 'Mambo Hills Safari Lodge' },
 ];
 
-export default function Header({ activeTab, setActiveTab }) {
+export default function Header() {
+  const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoOpen, setIsLogoOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleNavClick = (tabId) => {
-    setActiveTab(tabId);
-    setIsMenuOpen(false);
-  };
+  const defaultProperty =
+    pathname === '/mambo-beach'
+      ? 'Mambo Beach Hotel'
+      : pathname === '/mambo-safari'
+      ? 'Mambo Hills Safari Lodge'
+      : 'Mambo Hotel Group';
 
   return (
     <>
@@ -32,16 +38,19 @@ export default function Header({ activeTab, setActiveTab }) {
               className="cursor-pointer focus:outline-none group"
               aria-label="View logo enlarged"
             >
-              <img
+              <Image
                 src="/images/Mambo Hotel Group logo.png"
                 alt="Mambo Hotel Group Logo"
-                className="w-10 h-10 object-contain rounded-xl shadow-md transition-all duration-300 group-hover:scale-110 group-active:scale-95"
+                width={40}
+                height={40}
+                priority
+                className="w-10 h-10 object-contain rounded-xl shadow-md"
               />
             </button>
 
             {/* Brand text — click to go home */}
-            <button
-              onClick={() => setActiveTab('home')}
+            <Link
+              href="/"
               className="cursor-pointer text-left focus:outline-none group"
             >
               <span className="font-display font-bold text-stone-900 text-lg md:text-xl tracking-tight block leading-none group-hover:text-ocean-700 transition-colors">
@@ -50,7 +59,7 @@ export default function Header({ activeTab, setActiveTab }) {
               <span className="text-[10px] text-stone-500 font-medium tracking-widest uppercase block mt-1">
                 Boutique Tanzania
               </span>
-            </button>
+            </Link>
           </div>
 
           {/* Global Action CTA Button */}
@@ -58,7 +67,7 @@ export default function Header({ activeTab, setActiveTab }) {
             {/* Mobile: compact icon button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-900 hover:bg-stone-800 text-white rounded-xl shadow-sm transition-all cursor-pointer"
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-900 hover:bg-stone-800 text-white rounded-xl shadow-sm transition-colors cursor-pointer"
               aria-label="Open direct inquiry form"
             >
               <Mail className="w-4 h-4" />
@@ -66,7 +75,7 @@ export default function Header({ activeTab, setActiveTab }) {
             {/* Desktop: full button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all hover:scale-[1.02] cursor-pointer"
+              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-colors cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Direct Inquiry</span>
@@ -74,7 +83,7 @@ export default function Header({ activeTab, setActiveTab }) {
             {/* Mobile: hamburger menu toggle */}
             <button
               onClick={() => setIsMenuOpen((open) => !open)}
-              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl transition-all cursor-pointer"
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl transition-colors cursor-pointer"
               aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={isMenuOpen}
               aria-controls="mobile-nav"
@@ -91,21 +100,25 @@ export default function Header({ activeTab, setActiveTab }) {
             className="sm:hidden border-t border-stone-200 bg-white px-6 py-3"
           >
             <ul className="flex flex-col">
-              {NAV_ITEMS.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => handleNavClick(item.id)}
-                    aria-current={activeTab === item.id ? 'page' : undefined}
-                    className={`w-full text-left py-3 px-2 rounded-lg font-semibold text-sm transition-colors cursor-pointer ${
-                      activeTab === item.id
-                        ? 'text-brand bg-brand/5'
-                        : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      aria-current={isActive ? 'page' : undefined}
+                      className={`block w-full text-left py-3 px-2 rounded-lg font-semibold text-sm transition-colors cursor-pointer ${
+                        isActive
+                          ? 'text-brand bg-brand/5'
+                          : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         )}
@@ -113,13 +126,7 @@ export default function Header({ activeTab, setActiveTab }) {
         <InquiryModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          defaultProperty={
-            activeTab === 'mambo-beach'
-              ? 'Mambo Beach Hotel'
-              : activeTab === 'mambo-safari'
-              ? 'Mambo Hills Safari Lodge'
-              : 'Mambo Hotel Group'
-          }
+          defaultProperty={defaultProperty}
         />
       </header>
 
@@ -135,9 +142,11 @@ export default function Header({ activeTab, setActiveTab }) {
             style={{ animation: 'scaleIn 0.25s cubic-bezier(0.34,1.56,0.64,1)' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
               src="/images/Mambo Hotel Group logo.png"
               alt="Mambo Hotel Group Logo"
+              width={1254}
+              height={1254}
               className="w-full h-auto object-contain rounded-2xl"
             />
             <p className="text-stone-500 text-xs font-medium tracking-widest uppercase">

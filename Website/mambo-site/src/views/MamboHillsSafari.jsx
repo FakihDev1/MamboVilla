@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 export default function MamboHillsSafari() {
   return (
@@ -10,16 +11,19 @@ export default function MamboHillsSafari() {
       
       <div className="max-w-xl w-full text-center relative z-10">
         {/* Lodge Logo */}
-        <div className="bg-stone-950 p-8 rounded-3xl border border-amber-900/10 shadow-md mb-10 max-w-[320px] mx-auto transition-transform duration-500 hover:scale-[1.02]">
-          <img 
+        <div className="bg-stone-950 p-8 rounded-3xl border border-amber-900/10 shadow-md mb-10 max-w-[320px] mx-auto">
+          <Image 
             src="/images/Mambo Hills Safari Lodge logo.jpg" 
             alt="Mambo Hills Safari Lodge Logo" 
+            width={888}
+            height={813}
+            priority
             className="w-full h-auto object-contain"
           />
         </div>
 
         {/* Coming Soon status */}
-        <span className="inline-block py-1 px-3.5 rounded-full bg-amber-50 text-amber-800 text-[10px] font-bold tracking-widest uppercase mb-4 border border-amber-200/35 animate-pulse">
+        <span className="inline-block py-1 px-3.5 rounded-full bg-amber-50 text-amber-800 text-[10px] font-bold tracking-widest uppercase mb-4 border border-amber-200/35">
           Under Development
         </span>
         <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-6">
