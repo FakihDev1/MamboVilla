@@ -1,19 +1,31 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Mail, X } from 'lucide-react';
+import { Mail, X, Menu } from 'lucide-react';
 import InquiryModal from './InquiryModal';
+
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'mambo-beach', label: 'Mambo Beach Hotel' },
+  { id: 'mambo-safari', label: 'Mambo Hills Safari Lodge' },
+];
 
 export default function Header({ activeTab, setActiveTab }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLogoOpen, setIsLogoOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleNavClick = (tabId) => {
+    setActiveTab(tabId);
+    setIsMenuOpen(false);
+  };
 
   return (
     <>
       <header className="w-full bg-white border-b border-stone-200/80 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 h-20 flex items-center justify-between">
           {/* Brand: logo (enlarges on click) + text (navigates home) */}
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5 min-w-0">
             {/* Logo — click to enlarge */}
             <button
               onClick={() => setIsLogoOpen(true)}
@@ -42,16 +54,61 @@ export default function Header({ activeTab, setActiveTab }) {
           </div>
 
           {/* Global Action CTA Button */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 shrink-0">
+            {/* Mobile: compact icon button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-850 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all hover:scale-[1.02] cursor-pointer"
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-900 hover:bg-stone-800 text-white rounded-xl shadow-sm transition-all cursor-pointer"
+              aria-label="Open direct inquiry form"
+            >
+              <Mail className="w-4 h-4" />
+            </button>
+            {/* Desktop: full button */}
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm transition-all hover:scale-[1.02] cursor-pointer"
             >
               <Mail className="w-3.5 h-3.5" />
               <span>Direct Inquiry</span>
             </button>
+            {/* Mobile: hamburger menu toggle */}
+            <button
+              onClick={() => setIsMenuOpen((open) => !open)}
+              className="sm:hidden flex items-center justify-center w-11 h-11 bg-stone-100 hover:bg-stone-200 text-stone-900 rounded-xl transition-all cursor-pointer"
+              aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-nav"
+            >
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile navigation drawer */}
+        {isMenuOpen && (
+          <nav
+            id="mobile-nav"
+            className="sm:hidden border-t border-stone-200 bg-white px-6 py-3"
+          >
+            <ul className="flex flex-col">
+              {NAV_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <button
+                    onClick={() => handleNavClick(item.id)}
+                    aria-current={activeTab === item.id ? 'page' : undefined}
+                    className={`w-full text-left py-3 px-2 rounded-lg font-semibold text-sm transition-colors cursor-pointer ${
+                      activeTab === item.id
+                        ? 'text-brand bg-brand/5'
+                        : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         <InquiryModal
           isOpen={isModalOpen}

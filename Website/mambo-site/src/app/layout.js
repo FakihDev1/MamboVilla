@@ -18,6 +18,12 @@ export const metadata = {
   description: "Welcome to Mambo Beach Hotel, a premier full-service hotel in Matemwe, Zanzibar. Experience luxury, coastal charm, and exceptional central services.",
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>

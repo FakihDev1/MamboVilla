@@ -94,7 +94,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           1. HERO — Full-bleed photography
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full min-h-screen flex flex-col justify-end overflow-hidden">
+      <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
         <img
           src="/images/mamboBeachHotel/externalview10.jpeg"
           alt="Mambo Beach Hotel — Matemwe, Zanzibar"

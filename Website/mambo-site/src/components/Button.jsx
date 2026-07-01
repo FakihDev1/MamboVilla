@@ -21,9 +21,10 @@ export default function Button({
   const base =
     'font-bold transition-all inline-flex items-center justify-center gap-2 cursor-pointer';
   const classes = [base, VARIANTS[variant] ?? VARIANTS.primary, className].join(' ');
+  const typeProp = href ? {} : { type: props.type ?? 'button' };
 
   return (
-    <Component href={href} className={classes} {...props}>
+    <Component href={href} className={classes} {...props} {...typeProp}>
       {children}
     </Component>
   );

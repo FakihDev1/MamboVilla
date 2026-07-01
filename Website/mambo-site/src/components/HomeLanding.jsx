@@ -9,7 +9,7 @@ export default function HomeLanding({ setActiveTab }) {
     <div className="w-full">
 
       {/* ═══ HERO: Full-bleed destination photography ═══ */}
-      <section className="relative w-full min-h-screen flex flex-col justify-end overflow-hidden">
+      <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
         <img
           src="/images/mamboBeachHotel/beachside view.jpg"
           alt="Matemwe Beach, Zanzibar"
