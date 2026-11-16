@@ -53,13 +53,13 @@ export default function HomeLanding() {
               <ArrowRight className="w-4 h-4" />
             </Button>
             <Button
-              href="https://www.booking.com/"
+              href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
               target="_blank"
               rel="noopener noreferrer"
               variant="glass"
               className="px-7 py-3.5 rounded-2xl text-sm"
             >
-              Book on Booking.com
+              Book via WhatsApp
             </Button>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function HomeLanding() {
       <section className="bg-white border-b border-stone-100 px-6 lg:px-16 py-5">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <blockquote className="text-stone-600 text-sm font-light italic text-center sm:text-left max-w-xl">
-            "A quiet gem right on Matemwe beach — Azizi and his staff made me feel so welcome."
+            &ldquo;A quiet gem right on Matemwe beach — Azizi and his staff made me feel so welcome.&rdquo;
             <span className="text-stone-500 not-italic font-semibold ml-2">— Leigh Kendall</span>
           </blockquote>
           <div className="flex items-stretch divide-x divide-stone-200 shrink-0">
@@ -150,12 +150,12 @@ export default function HomeLanding() {
                 <ArrowRight className="w-4 h-4" />
               </Button>
               <a
-                href="https://www.booking.com/"
+                href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center py-2.5 text-brand hover:text-brand-hover font-semibold text-sm transition-colors"
               >
-                Book on Booking.com →
+                Book via WhatsApp →
               </a>
             </div>
           </div>

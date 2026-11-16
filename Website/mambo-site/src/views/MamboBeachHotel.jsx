@@ -124,12 +124,12 @@ export default function MamboBeachHotel() {
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
-              href="https://www.booking.com/"
+              href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
               target="_blank"
               rel="noopener noreferrer"
               className="px-7 py-3.5 rounded-2xl text-sm shadow-lg"
             >
-              Book Now <ArrowRight className="w-4 h-4" />
+              Book via WhatsApp <ArrowRight className="w-4 h-4" />
             </Button>
             <Button
               variant="glass"
@@ -260,13 +260,13 @@ export default function MamboBeachHotel() {
           <p className="text-ocean-200 text-sm mb-6 font-light">Only 5 rooms — availability is limited</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Button
-              href="https://www.booking.com/"
+              href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
               target="_blank"
               rel="noopener noreferrer"
               variant="onBrand"
               className="px-7 py-3 rounded-2xl text-sm"
             >
-              Book on Booking.com <ArrowRight className="w-4 h-4" />
+              Book via WhatsApp <ArrowRight className="w-4 h-4" />
             </Button>
             <Button
               variant="glassStrong"
@@ -307,7 +307,7 @@ export default function MamboBeachHotel() {
               No buffets. No crowds. Our kitchen prepares fresh, authentic meals daily — served on your balcony, beachside, or wherever you prefer. Breakfast, lunch, or dinner on request.
             </p>
             <blockquote className="border-l-2 border-amber-400 pl-4 text-stone-500 text-sm italic">
-              "The lobster and grilled fish were cooked to perfection. Felt like a mini honeymoon dinner all over again." — Moza ⭐⭐⭐⭐⭐
+              &ldquo;The lobster and grilled fish were cooked to perfection. Felt like a mini honeymoon dinner all over again.&rdquo; — Moza ⭐⭐⭐⭐⭐
             </blockquote>
           </div>
         </div>
@@ -397,15 +397,15 @@ export default function MamboBeachHotel() {
         <h2 className="font-display text-3xl lg:text-4xl font-bold text-stone-900 mb-3">
           Ready for paradise?
         </h2>
-        <p className="text-stone-500 mb-8 font-light">Only 5 rooms — don't miss your dates.</p>
+        <p className="text-stone-500 mb-8 font-light">Only 5 rooms — don&apos;t miss your dates.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button
-            href="https://www.booking.com/"
+            href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
             target="_blank"
             rel="noopener noreferrer"
             className="px-8 py-4 rounded-full shadow-lg group"
           >
-            Book on Booking.com
+            Book via WhatsApp
             <ArrowRight className="w-4 h-4" />
           </Button>
           <Button
@@ -556,12 +556,12 @@ export default function MamboBeachHotel() {
               Enquire
             </button>
             <Button
-              href="https://www.booking.com/"
+              href="https://wa.me/447849243128?text=Hello%2C%20I%20would%20like%20to%20book%20a%20stay%20at%20Mambo%20Beach%20Hotel"
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 rounded-xl text-sm"
             >
-              Book Now <ArrowRight className="w-3.5 h-3.5" />
+              Book via WhatsApp <ArrowRight className="w-3.5 h-3.5" />
             </Button>
           </div>
         </div>

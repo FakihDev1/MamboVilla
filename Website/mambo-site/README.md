@@ -185,9 +185,9 @@ git push origin hotfix/your-fix-name
 
 ## Environment Notes
 
-- **Booking.com link** — currently points to `booking.com` homepage. Update to the direct property listing URL in:
-  - `src/components/HomeLanding.jsx` (booking panel)
-  - `src/components/MamboBeachHotel.jsx` (hero CTA, mid-page CTA, sticky bar, final CTA)
+- **WhatsApp Booking** — booking buttons link directly to WhatsApp chat (`+447849243128`):
+  - `src/views/HomeLanding.jsx` (hero CTA & booking panel)
+  - `src/views/MamboBeachHotel.jsx` (hero CTA, mid-page CTA, sticky bar, final CTA)
 
 - **Inquiry form** — the `InquiryModal.jsx` currently logs submissions to the console. To wire up real email delivery, integrate [Formspree](https://formspree.io/) or a similar service and update the `handleSubmit` function.
 

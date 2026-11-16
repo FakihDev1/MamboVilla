@@ -63,7 +63,7 @@ export default function InquiryModal({ isOpen, onClose, defaultProperty = 'Mambo
               <CheckCircle className="w-16 h-16 text-ocean-500 mx-auto mb-4" />
               <h4 className="font-display font-bold text-xl text-stone-900 mb-2">Inquiry Received</h4>
               <p className="text-stone-600 text-sm">
-                Thank you, {formData.name}. We've received your inquiry for your stay and will get back to you at {formData.email} shortly.
+                Thank you, {formData.name}. We&apos;ve received your inquiry for your stay and will get back to you at {formData.email} shortly.
               </p>
               <button
                 onClick={onClose}

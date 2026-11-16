@@ -74,7 +74,14 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-2.5">
               <Phone className="w-4 h-4 text-stone-500" />
-              <span>+447849243128</span>
+              <a
+                href="https://wa.me/447849243128"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-white transition-colors"
+              >
+                +447849243128
+              </a>
             </li>
           </ul>
         </div>
