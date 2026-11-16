@@ -78,7 +78,7 @@ export default function MamboBeachHotel() {
       {/* ═══════════════════════════════════════════
           1. HERO — Full-bleed photography
       ═══════════════════════════════════════════ */}
-      <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
+      <section className="relative w-full min-h-[75svh] flex flex-col justify-end overflow-hidden">
         <Image
           src="/images/mamboBeachHotel/externalview10.jpeg"
           alt="Mambo Beach Hotel — Matemwe, Zanzibar"
@@ -89,7 +89,7 @@ export default function MamboBeachHotel() {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/30 to-transparent" />
 
-        <div className="relative z-10 px-6 lg:px-12 pb-12 max-w-4xl">
+        <div className="relative z-10 px-6 lg:px-12 pt-28 pb-12 max-w-4xl">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <span className="text-amber-300 text-xs font-semibold uppercase tracking-widest">Matemwe, Zanzibar</span>

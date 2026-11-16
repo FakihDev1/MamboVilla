@@ -28,8 +28,20 @@ export default function InquiryModal({ isOpen, onClose, defaultProperty = 'Mambo
       return;
     }
     setError('');
+
+    const lines = [
+      `Hello, I would like to make an inquiry for ${defaultProperty}.`,
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      formData.checkIn ? `Check-in: ${formData.checkIn}` : null,
+      formData.checkOut ? `Check-out: ${formData.checkOut}` : null,
+      `Guests: ${formData.guests}`,
+    ].filter(Boolean);
+
+    const whatsappUrl = `https://wa.me/447849243128?text=${encodeURIComponent(lines.join('\n'))}`;
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+
     setSubmitted(true);
-    // Submit logic goes here (e.g., Formspree / Cloudflare worker)
   };
 
   return (
@@ -61,13 +73,19 @@ export default function InquiryModal({ isOpen, onClose, defaultProperty = 'Mambo
           {submitted ? (
             <div className="text-center py-8">
               <CheckCircle className="w-16 h-16 text-ocean-500 mx-auto mb-4" />
-              <h4 className="font-display font-bold text-xl text-stone-900 mb-2">Inquiry Received</h4>
+              <h4 className="font-display font-bold text-xl text-stone-900 mb-2">Opening WhatsApp</h4>
               <p className="text-stone-600 text-sm">
-                Thank you, {formData.name}. We&apos;ve received your inquiry for your stay and will get back to you at {formData.email} shortly.
+                Thank you, {formData.name}. Please send the pre-filled message in WhatsApp, or email us directly at{' '}
+                <a href="mailto:admin@mambohotelgroup.com" className="text-ocean-600 underline">
+                  admin@mambohotelgroup.com
+                </a>.
               </p>
               <button
-                onClick={onClose}
-                className="mt-6 px-6 py-2 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-colors"
+                onClick={() => {
+                  setSubmitted(false);
+                  onClose();
+                }}
+                className="mt-6 px-6 py-2 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-colors cursor-pointer"
               >
                 Close
               </button>
@@ -161,19 +179,12 @@ export default function InquiryModal({ isOpen, onClose, defaultProperty = 'Mambo
                 </select>
               </div>
 
-              {/* Cloudflare Turnstile Placeholder */}
-              <div className="mt-2 bg-stone-50 border border-stone-200 border-dashed rounded-xl p-4 flex flex-col items-center justify-center gap-2">
-                <div className="w-8 h-8 rounded-full border-2 border-ocean-500 border-t-transparent animate-spin"></div>
-                <span className="text-xs text-stone-500 font-medium">Verifying you are human...</span>
-                <span className="text-[10px] text-stone-400">(Cloudflare Turnstile Widget Placeholder)</span>
-              </div>
-
               <button
                 type="submit"
-                className="mt-4 w-full py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2"
+                className="mt-2 w-full py-4 bg-ocean-600 hover:bg-ocean-500 text-white font-bold rounded-xl shadow-md transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
-                <span>Send Request</span>
+                <span>Send via WhatsApp</span>
               </button>
             </form>
           )}

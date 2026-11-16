@@ -9,7 +9,7 @@ export default function HomeLanding() {
     <div className="w-full">
 
       {/* ═══ HERO: Full-bleed destination photography ═══ */}
-      <section className="relative w-full h-[75svh] flex flex-col justify-end overflow-hidden">
+      <section className="relative w-full min-h-[75svh] flex flex-col justify-end overflow-hidden">
         <Image
           src="/images/mamboBeachHotel/beachside view.jpg"
           alt="Matemwe Beach, Zanzibar"
@@ -21,7 +21,7 @@ export default function HomeLanding() {
         {/* Gradient: darkest at bottom for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-900/40 to-stone-900/5" />
 
-        <div className="relative z-10 px-6 lg:px-16 pb-16 lg:pb-24 max-w-3xl">
+        <div className="relative z-10 px-6 lg:px-16 pt-28 pb-12 sm:pb-16 lg:pb-24 max-w-3xl">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
             <span className="text-amber-300 text-xs font-semibold uppercase tracking-widest">Matemwe, Zanzibar</span>
